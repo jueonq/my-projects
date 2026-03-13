@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오늘의 마지막 커피 ☕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ===== BASE ===== */
+    body {
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      background: #FDF6EC;
+      color: #2C1810;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      background: #fff;
+      border-bottom: 1px solid #EDE0D4;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(111,78,55,.08);
+    }
+    .site-header .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #6F4E37;
+      text-decoration: none;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 20px 0;
+    }
+
+    /* ===== HERO TITLE ===== */
+    .hero {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .hero-icon { font-size: 3rem; line-height: 1; margin-bottom: 12px; }
+    .hero h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #3B1E08;
+      margin-bottom: 6px;
+    }
+    .hero p {
+      font-size: 0.95rem;
+      color: #9C7B6B;
+      line-height: 1.6;
+    }
+
+    /* ===== INPUT CARD ===== */
+    .input-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 28px 24px;
+      box-shadow: 0 4px 20px rgba(111,78,55,.10);
+      margin-bottom: 28px;
+    }
+    .input-card-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #9C7B6B;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .input-card-subtitle {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #6F4E37;
+      margin-bottom: 16px;
+    }
+
+    /* ===== iOS DRUM PICKER ===== */
+    .picker-outer {
+      background: #F7EFE6;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    /* 선택 영역 하이라이트 */
+    .picker-highlight {
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 44px;
+      transform: translateY(-50%);
+      background: rgba(111, 78, 55, 0.10);
+      border-top: 1px solid rgba(111, 78, 55, 0.18);
+      border-bottom: 1px solid rgba(111, 78, 55, 0.18);
+      pointer-events: none;
+      z-index: 3;
+      border-radius: 0;
+    }
+
+    /* 위아래 그라디언트 페이드 */
+    .picker-fade {
+      position: absolute;
+      left: 0; right: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .picker-fade.top {
+      top: 0;
+      height: 40%;
+      background: linear-gradient(to bottom, #F7EFE6 0%, rgba(247,239,230,0) 100%);
+    }
+    .picker-fade.bottom {
+      bottom: 0;
+      height: 40%;
+      background: linear-gradient(to top, #F7EFE6 0%, rgba(247,239,230,0) 100%);
+    }
+
+    /* 컬럼 컨테이너 */
+    .picker-cols {
+      display: flex;
+      height: 220px; /* 5 items × 44px */
+    }
+
+    /* 각 컬럼 */
+    .pc-col {
+      flex: 1;
+      overflow: hidden;
+      cursor: grab;
+      position: relative;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .pc-col:active { cursor: grabbing; }
+    .pc-col + .pc-col {
+      border-left: 1px solid rgba(111,78,55,.12);
+    }
+
+    /* 아이템 트랙 */
+    .pc-track {
+      will-change: transform;
+    }
+
+    /* 개별 아이템 */
+    .pc-item {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #4A2E1A;
+      letter-spacing: 0.01em;
+    }
+
+    /* 컬럼 레이블 */
+    .picker-col-labels {
+      display: flex;
+      padding: 0 0 8px;
+    }
+    .picker-col-label {
+      flex: 1;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #B09080;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== CALC BUTTON ===== */
+    .calc-btn {
+      width: 100%;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: #6F4E37;
+      border: none;
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .calc-btn:hover { background: #5A3D2B; }
+    .calc-btn:active { transform: scale(0.98); }
+
+    /* ===== CURRENT TIME ===== */
+    .current-time-display {
+      font-size: 0.82rem;
+      color: #B09080;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    /* ===== FORMULA HINT ===== */
+    .formula-hint {
+      background: #FEF3E8;
+      border: 1px solid #F5C49A;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: #8C5E3A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .formula-hint span { font-size: 1rem; }
+
+    /* ===== LOADING SECTION ===== */
+    #loading-section { display: none; }
+    #loading-section.visible { display: block; }
+
+    .loading-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 28px 36px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(111,78,55,.10);
+      margin-bottom: 28px;
+    }
+
+    /* 커피잔 + 연기 컨테이너 */
+    .coffee-scene {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    /* 연기 3줄 */
+    .steam-wrap {
+      position: absolute;
+      bottom: 88%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      width: 60px;
+      justify-content: center;
+    }
+    .steam-line {
+      width: 5px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(to top, rgba(111,78,55,0.55), transparent);
+      animation: steam-rise 2s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    .steam-line:nth-child(1) { animation-delay: 0s; }
+    .steam-line:nth-child(2) { animation-delay: 0.5s; }
+    .steam-line:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes steam-rise {
+      0%   { transform: translateY(0)    scaleX(1)   rotateZ(0deg);  opacity: 0;   }
+      15%  { opacity: 0.8; }
+      50%  { transform: translateY(-22px) scaleX(1.6) rotateZ(9deg);  opacity: 0.45; }
+      85%  { opacity: 0.15; }
+      100% { transform: translateY(-44px) scaleX(0.8) rotateZ(-6deg); opacity: 0;   }
+    }
+
+    .coffee-cup-emoji {
+      font-size: 4.5rem;
+      line-height: 1;
+      display: block;
+    }
+
+    /* 로딩 텍스트 */
+    .loading-label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #3B1E08;
+      margin-top: 18px;
+      margin-bottom: 6px;
+    }
+    .loading-status {
+      font-size: 0.85rem;
+      color: #9C7B6B;
+      height: 20px;
+      transition: opacity 0.3s;
+      margin-bottom: 20px;
+    }
+
+    /* 프로그레스 바 */
+    .loading-progress-track {
+      width: 100%;
+      height: 6px;
+      background: #EDE0D4;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .loading-progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #A0714F, #6F4E37, #3B1E08);
+      background-size: 200% 100%;
+      animation: bar-shimmer 1.2s linear infinite;
+    }
+    @keyframes bar-shimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
+    /* ===== RESULT SECTION ===== */
+    #result-section { display: none; }
+    #result-section.visible { display: block; }
+
+    /* ===== BEST PICK CARD ===== */
+    .best-pick-card {
+      background: linear-gradient(135deg, #6F4E37 0%, #3B1E08 100%);
+      border-radius: 20px;
+      padding: 28px;
+      color: #fff;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .best-pick-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+    }
+    .best-pick-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -20px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+    .best-pick-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255,255,255,.18);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .best-pick-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .best-pick-sub {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .caffeine-bar-wrap { position: relative; z-index: 1; }
+    .caffeine-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+    .caffeine-bar-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .caffeine-bar-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #A8E063, #F9D423, #FF6B35);
+      transition: width 0.5s ease;
+    }
+    .best-pick-info {
+      margin-top: 16px;
+      background: rgba(255,255,255,.12);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      position: relative;
+      z-index: 1;
+    }
+    .best-pick-info strong { font-weight: 700; }
+
+    /* ===== NO DRINK CARD ===== */
+    .no-drink-card {
+      background: #fff;
+      border: 2px solid #EDE0D4;
+      border-radius: 20px;
+      padding: 40px 28px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .no-drink-card .nd-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .no-drink-card h3 { font-size: 1.15rem; font-weight: 700; color: #3B1E08; margin-bottom: 6px; }
+    .no-drink-card p { font-size: 0.9rem; color: #9C7B6B; }
+
+    /* ===== DRINK LIST SECTIONS ===== */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .section-header h2 { font-size: 1rem; font-weight: 700; color: #3B1E08; }
+    .section-header .count-badge {
+      background: #6F4E37;
+      color: #fff;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .section-header .count-badge.disabled { background: #D4C4B8; }
+    .drink-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    /* ===== DRINK CARD ===== */
+    .drink-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(111,78,55,.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+    .drink-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(111,78,55,.14); }
+    .drink-card.disabled { opacity: 0.38; pointer-events: none; box-shadow: none; }
+
+    /* 이미지 영역 */
+    .drink-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #F7EFE6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .drink-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .drink-card:hover .drink-img { transform: scale(1.05); }
+    .drink-img-fallback {
+      font-size: 2.8rem;
+      display: none;
+    }
+
+    /* 카드 하단 텍스트 영역 */
+    .drink-body { padding: 12px 14px 14px; }
+    .drink-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .drink-tag {
+      font-size: 0.68rem; font-weight: 600;
+      background: #F5EDE6; color: #8C5E3A;
+      border-radius: 6px; padding: 2px 7px;
+    }
+    .drink-name { font-size: 0.9rem; font-weight: 700; color: #2C1810; margin-bottom: 3px; line-height: 1.3; }
+    .drink-caffeine-num { font-size: 0.76rem; color: #9C7B6B; margin-bottom: 7px; }
+    .drink-mini-bar-track { height: 4px; background: #EDE0D4; border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+    .drink-mini-bar-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, #A8E063, #F9D423, #FF6B35); }
+    .drink-deadline { font-size: 0.75rem; color: #6F4E37; font-weight: 500; }
+    .drink-deadline.urgent { color: #E8530A; font-weight: 700; }
+    .drink-deadline.disabled-msg { color: #B09080; }
+    .urgent-badge {
+      position: absolute; top: 8px; right: 8px;
+      background: #FFF3ED; color: #E8530A;
+      border: 1px solid #FDBA8C; border-radius: 6px;
+      font-size: 0.65rem; font-weight: 700; padding: 2px 6px;
+    }
+
+    /* ===== DIVIDER ===== */
+    .section-divider { margin: 0 0 20px; border: none; border-top: 2px dashed #EDE0D4; }
+
+    /* ===== MATH DETAIL ===== */
+    .math-detail-section {
+      background: #fff; border-radius: 16px;
+      padding: 20px 22px; margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(111,78,55,.06);
+    }
+    .math-toggle-btn {
+      background: none; border: none; font-family: inherit;
+      font-size: 0.88rem; font-weight: 600; color: #9C7B6B;
+      cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 0;
+    }
+    .math-toggle-btn:hover { color: #6F4E37; }
+    .math-toggle-icon { transition: transform 0.2s; font-size: 0.75rem; }
+    .math-toggle-icon.open { transform: rotate(180deg); }
+    .math-body { display: none; margin-top: 14px; }
+    .math-body.open { display: block; }
+    .math-body p { font-size: 0.83rem; color: #7A5C4A; line-height: 1.8; }
+    .math-formula {
+      background: #FDF6EC; border-radius: 8px; padding: 10px 14px;
+      font-size: 0.85rem; font-family: 'Courier New', monospace;
+      color: #4A2E1A; margin: 8px 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 540px) {
+      .hero h1 { font-size: 1.4rem; }
+      .best-pick-name { font-size: 1.3rem; }
+      .drink-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 380px) {
+      .drink-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <a class="logo" href="#">☕ 오늘의 마지막 커피</a>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="main-wrap">
+
+  <!-- 히어로 타이틀 -->
+  <section class="hero">
+    <div class="hero-icon">☕</div>
+    <h1>오늘 마지막 커피, 뭐 마실까?</h1>
+    <p>자려는 시간을 설정하면<br>지금 마실 수 있는 스타벅스 메뉴를 추천해드려요.</p>
+  </section>
+
+  <!-- 입력 카드 -->
+  <section class="input-card">
+    <div class="input-card-title">목표 수면 시간 설정</div>
+    <div class="input-card-subtitle">자려는 시간</div>
+
+    <!-- 컬럼 레이블 -->
+    <div class="picker-col-labels">
+      <div class="picker-col-label">오전 / 오후</div>
+      <div class="picker-col-label">시</div>
+      <div class="picker-col-label">분</div>
+    </div>
+
+    <!-- 다이얼 피커 -->
+    <div class="picker-outer">
+      <div class="picker-highlight"></div>
+      <div class="picker-fade top"></div>
+      <div class="picker-fade bottom"></div>
+      <div class="picker-cols">
+        <div class="pc-col" id="col-ampm"></div>
+        <div class="pc-col" id="col-hour"></div>
+        <div class="pc-col" id="col-min"></div>
+      </div>
+    </div>
+
+    <!-- 현재 시간 -->
+    <div class="current-time-display" id="current-time-display">현재 시간: 로딩 중...</div>
+
+    <!-- 추천받기 버튼 -->
+    <button class="calc-btn" onclick="calculate()">추천받기 →</button>
+
+    <div class="formula-hint">
+      <span>🧪</span>
+      카페인 반감기 4시간 기준 · 체내 잔여 카페인 50mg 이하일 때 수면 가능
+    </div>
+  </section>
+
+  <!-- 로딩 섹션 -->
+  <section id="loading-section">
+    <div class="loading-card">
+      <div class="coffee-scene">
+        <div class="steam-wrap">
+          <div class="steam-line"></div>
+          <div class="steam-line"></div>
+          <div class="steam-line"></div>
+        </div>
+        <span class="coffee-cup-emoji">☕</span>
+      </div>
+      <div class="loading-label">카페인 분해 시간 분석 중...</div>
+      <div class="loading-status" id="loading-status">음료별 카페인 함량을 확인하고 있어요</div>
+      <div class="loading-progress-track">
+        <div class="loading-progress-fill" id="loading-progress-fill"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 결과 섹션 -->
+  <section id="result-section">
+    <div id="best-pick-wrap"></div>
+    <div id="available-section"></div>
+    <div id="unavailable-section"></div>
+
+    <div class="math-detail-section">
+      <button class="math-toggle-btn" onclick="toggleMath()">
+        <span>계산 원리 보기</span>
+        <span class="math-toggle-icon" id="math-icon">▼</span>
+      </button>
+      <div class="math-body" id="math-body">
+        <p>카페인 반감기 공식을 사용해 체내 잔여 카페인 농도를 계산합니다.</p>
+        <div class="math-formula">C(t) = C₀ × (1/2)^(t / T)</div>
+        <p>
+          · <b>C₀</b> : 음료의 카페인 함량(mg)<br>
+          · <b>T</b> : 카페인 반감기 = 4시간<br>
+          · <b>t</b> : 섭취 후 경과 시간(h)<br>
+          · 안전 임계치 : 50mg 이하 → 수면 가능
+        </p>
+        <div class="math-formula">필요 분해 시간 = 4 × log₂(C₀ ÷ 50) 시간</div>
+        <p>마지막 음용 가능 시간 = 목표 수면 시각 − 필요 분해 시간</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ===================================================
+   iOS-STYLE DRUM ROLL PICKER
+   =================================================== */
+class PickerCol {
+  constructor({ el, items, loop = false, defaultIdx = 0, onChange }) {
+    this.el       = el;
+    this.items    = items;
+    this.loop     = loop && items.length > 3;
+    this.itemH    = 44;
+    this.visible  = 5;           // 화면에 보이는 행 수
+    this.selIdx   = defaultIdx;
+    this.onChange = onChange;
+
+    this._offset  = 0;
+    this._drag    = false;
+    this._startY  = 0;
+    this._startOff= 0;
+    this._lastY   = 0;
+    this._vel     = 0;
+
+    this._build();
+    this._bind();
+    this._jumpTo(defaultIdx, false);
+  }
+
+  /* ---- DOM 생성 ---- */
+  _build() {
+    this.track = document.createElement('div');
+    this.track.className = 'pc-track';
+
+    const addItems = () => this.items.forEach(text => {
+      const d = document.createElement('div');
+      d.className = 'pc-item';
+      d.textContent = text;
+      this.track.appendChild(d);
+    });
+
+    if (this.loop) { addItems(); addItems(); addItems(); } // 3 copies
+    else           { addItems(); }
+
+    this.el.appendChild(this.track);
+  }
+
+  /* ---- 인덱스 → offset 변환 ---- */
+  _idxToOff(absIdx) {
+    return -(absIdx * this.itemH) + Math.floor(this.visible / 2) * this.itemH;
+  }
+
+  /* ---- offset → 절대 인덱스 변환 ---- */
+  _offToAbsIdx(off) {
+    return Math.round((-off + Math.floor(this.visible / 2) * this.itemH) / this.itemH);
+  }
+
+  /* ---- 실제 아이템 인덱스 (모듈로) ---- */
+  _realIdx(absIdx) {
+    return ((absIdx % this.items.length) + this.items.length) % this.items.length;
+  }
+
+  /* ---- 특정 인덱스로 이동 ---- */
+  _jumpTo(idx, animate) {
+    const absIdx = this.loop ? this.items.length + idx : idx;
+    this._apply(this._idxToOff(absIdx), animate);
+    this.selIdx = idx;
+  }
+
+  /* ---- transform 적용 ---- */
+  _apply(offset, animate) {
+    this.track.style.transition = animate
+      ? 'transform 0.28s cubic-bezier(0.17, 0.89, 0.45, 1)'
+      : 'none';
+    this._offset = offset;
+    this.track.style.transform = `translateY(${offset}px)`;
+  }
+
+  /* ---- 드래그 끝 후 가장 가까운 항목으로 스냅 ---- */
+  _snap() {
+    const n     = this.items.length;
+    const total = this.loop ? n * 3 : n;
+    let absIdx  = this._offToAbsIdx(this._offset);
+
+    // 범위 클램프
+    absIdx = Math.max(0, Math.min(total - 1, absIdx));
+
+    const target  = this._idxToOff(absIdx);
+    const newReal = this._realIdx(absIdx);
+
+    this._apply(target, true);
+
+    if (newReal !== this.selIdx) {
+      this.selIdx = newReal;
+      if (this.onChange) this.onChange(newReal);
+    }
+
+    // 루프: 애니메이션 끝나면 중앙 카피로 조용히 점프
+    if (this.loop) {
+      setTimeout(() => {
+        const centered = n + this.selIdx;
+        this.track.style.transition = 'none';
+        this._offset = this._idxToOff(centered);
+        this.track.style.transform = `translateY(${this._offset}px)`;
+      }, 300);
+    }
+  }
+
+  /* ---- 이벤트 바인딩 ---- */
+  _bind() {
+    const onStart = (y) => {
+      this._drag     = true;
+      this._startY   = y;
+      this._startOff = this._offset;
+      this._lastY    = y;
+      this._vel      = 0;
+      this.track.style.transition = 'none';
+    };
+    const onMove = (y) => {
+      if (!this._drag) return;
+      this._vel    = y - this._lastY;
+      this._lastY  = y;
+      this._offset = this._startOff + (y - this._startY);
+      this.track.style.transform = `translateY(${this._offset}px)`;
+    };
+    const onEnd = () => {
+      if (!this._drag) return;
+      this._drag    = false;
+      this._offset += this._vel * 4; // 관성
+      this._snap();
+    };
+
+    // Mouse
+    this.el.addEventListener('mousedown', e => { e.preventDefault(); onStart(e.clientY); });
+    window.addEventListener('mousemove',  e => onMove(e.clientY));
+    window.addEventListener('mouseup',    onEnd);
+
+    // Touch
+    this.el.addEventListener('touchstart', e => onStart(e.touches[0].clientY), { passive: true });
+    this.el.addEventListener('touchmove',  e => { e.preventDefault(); onMove(e.touches[0].clientY); }, { passive: false });
+    this.el.addEventListener('touchend',   onEnd);
+
+    // Wheel
+    this.el.addEventListener('wheel', e => {
+      e.preventDefault();
+      this._offset -= e.deltaY * 0.8;
+      this.track.style.transition = 'none';
+      this.track.style.transform = `translateY(${this._offset}px)`;
+      clearTimeout(this._wt);
+      this._wt = setTimeout(() => this._snap(), 130);
+    }, { passive: false });
+  }
+
+  getValue() { return this.items[this.selIdx]; }
+}
+
+/* ===================================================
+   피커 초기화  (기본값: 오후 10:30)
+   =================================================== */
+const AMPM_ITEMS = ['오전', '오후'];
+const HOUR_ITEMS = Array.from({ length: 12 }, (_, i) => String(i + 1));
+const MIN_ITEMS  = Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0'));
+
+let pickerAmpm, pickerHour, pickerMin;
+
+function initPickers() {
+  pickerAmpm = new PickerCol({
+    el: document.getElementById('col-ampm'),
+    items: AMPM_ITEMS,
+    loop: false,
+    defaultIdx: 1,   // 오후
+  });
+  pickerHour = new PickerCol({
+    el: document.getElementById('col-hour'),
+    items: HOUR_ITEMS,
+    loop: true,
+    defaultIdx: 9,   // "10" (index 9)
+  });
+  pickerMin = new PickerCol({
+    el: document.getElementById('col-min'),
+    items: MIN_ITEMS,
+    loop: true,
+    defaultIdx: 30,  // "30"
+  });
+}
+
+/* 피커에서 "HH:MM" 형식 읽기 */
+function getSleepTimeStr() {
+  let h = parseInt(pickerHour.getValue(), 10);
+  const m = parseInt(pickerMin.getValue(), 10);
+  const isPM = pickerAmpm.getValue() === '오후';
+
+  if (isPM  && h !== 12) h += 12;
+  if (!isPM && h === 12) h  = 0;
+
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+}
+
+/* ===================================================
+   DRINK DATA
+   =================================================== */
+const IMG = 'https://image.istarbucks.co.kr';
+const DRINKS = [
+  { name: "나이트로 콜드브루",              caffeine: 215, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000479]_20250626095418324.jpg' },
+  { name: "아이스 아메리카노",              caffeine: 150, emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110563]_20250626094353711.jpg' },
+  { name: "아메리카노",                     caffeine: 150, emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[94]_20210430103337006.jpg' },
+  { name: "콜드브루",                       caffeine: 150, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000038]_20250626095744182.jpg' },
+  { name: "바닐라 크림 콜드브루",           caffeine: 110, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000487]_20250626095703208.jpg' },
+  { name: "돌체 콜드브루",                  caffeine: 110, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000002081]_20250626100020135.jpg' },
+  { name: "카페 라떼",                      caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[41]_20210415133833725.jpg' },
+  { name: "아이스 카페 라떼",               caffeine: 75,  emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110569]_20250626094801903.jpg' },
+  { name: "카라멜 마키아토",                caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[126197]_20210415154609863.jpg' },
+  { name: "아이스 카라멜 마키아토",         caffeine: 75,  emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110582]_20250626095111658.jpg' },
+  { name: "카푸치노",                       caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[38]_20210415154821846.jpg' },
+  { name: "카페 모카",                      caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[46]_20210415134438165.jpg' },
+  { name: "그린티 라떼",                    caffeine: 55,  emoji: "🍵", category: "티",         img: IMG+'/upload/store/skuimg/2021/04/[9200000002496]_20210419131039350.jpg' },
+  { name: "딸기 아사이 레모네이드",         caffeine: 45,  emoji: "🍓", category: "리프레셔",   img: IMG+'/upload/store/skuimg/2025/06/[9200000003763]_20250626093913823.jpg' },
+  { name: "망고 드래곤 프루트 레모네이드",  caffeine: 45,  emoji: "🥭", category: "리프레셔",   img: null },
+  { name: "핑크 드링크",                    caffeine: 45,  emoji: "🌸", category: "리프레셔",   img: null },
+  { name: "시그니처 핫 초콜릿",             caffeine: 25,  emoji: "🍫", category: "기타",       img: IMG+'/upload/store/skuimg/2021/04/[72]_20210415140949967.jpg' },
+  { name: "디카페인 아메리카노",            caffeine: 15,  emoji: "☕", category: "디카페인",   img: null },
+];
+
+const MAX_CAFFEINE   = 215;
+const HALF_LIFE_H    = 4;
+const SAFE_THRESHOLD = 50;
+const URGENT_WIN_H   = 2;
+
+/* ===================================================
+   UTILS
+   =================================================== */
+function hoursNeeded(caffeine) {
+  if (caffeine <= SAFE_THRESHOLD) return 0;
+  return HALF_LIFE_H * Math.log2(caffeine / SAFE_THRESHOLD);
+}
+
+function getSleepMs(sleepTimeStr) {
+  const now = new Date();
+  const [hh, mm] = sleepTimeStr.split(':').map(Number);
+  const s = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, mm, 0, 0);
+  if (s.getTime() <= now.getTime()) s.setDate(s.getDate() + 1);
+  return s.getTime();
+}
+
+function formatTime(ms) {
+  const d = new Date(ms);
+  const h = d.getHours(), m = d.getMinutes();
+  const ap = h < 12 ? '오전' : '오후';
+  const hh = h % 12 === 0 ? 12 : h % 12;
+  return `${ap} ${hh}:${String(m).padStart(2, '0')}`;
+}
+
+function formatHours(h) {
+  const tot = Math.round(h * 60);
+  const hp = Math.floor(tot / 60), mp = tot % 60;
+  if (hp === 0) return `${mp}분`;
+  if (mp === 0) return `${hp}시간`;
+  return `${hp}시간 ${mp}분`;
+}
+
+function barPct(caffeine) {
+  return Math.round((caffeine / MAX_CAFFEINE) * 100);
+}
+
+/* ===================================================
+   CURRENT TIME DISPLAY
+   =================================================== */
+function updateCurrentTime() {
+  const now = new Date();
+  const h = now.getHours(), m = now.getMinutes();
+  const ap = h < 12 ? '오전' : '오후';
+  const hh = h % 12 === 0 ? 12 : h % 12;
+  const el = document.getElementById('current-time-display');
+  if (el) el.textContent = `현재 시간: ${ap} ${hh}:${String(m).padStart(2, '0')}`;
+}
+
+/* ===================================================
+   DRINK CARD HTML
+   =================================================== */
+function buildDrinkCard(drink, latestMs, nowMs) {
+  const ok     = latestMs === Infinity || latestMs >= nowMs;
+  const msLeft = latestMs - nowMs;
+  const hleft  = msLeft / 3600000;
+  const urgent = ok && latestMs !== Infinity && hleft <= URGENT_WIN_H;
+  const w      = barPct(drink.caffeine);
+
+  let deadlineHtml;
+  if (latestMs === Infinity) {
+    deadlineHtml = `<div class="drink-deadline">언제든 OK ✅</div>`;
+  } else if (ok) {
+    const t = formatTime(latestMs);
+    deadlineHtml = urgent
+      ? `<div class="drink-deadline urgent">⏰ ${t}까지 마셔야 해요</div>`
+      : `<div class="drink-deadline">${t}까지 마실 수 있어요</div>`;
+  } else {
+    deadlineHtml = `<div class="drink-deadline disabled-msg">${formatHours(Math.abs(msLeft) / 3600000)} 전에 마셨어야 해요</div>`;
+  }
+
+  const imgHtml = drink.img
+    ? `<img class="drink-img" src="${drink.img}" alt="${drink.name}"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+       <div class="drink-img-fallback">${drink.emoji}</div>`
+    : `<div class="drink-img-fallback" style="display:flex">${drink.emoji}</div>`;
+
+  return `
+    <div class="drink-card${ok ? '' : ' disabled'}">
+      ${urgent ? '<div class="urgent-badge">마감 임박</div>' : ''}
+      <div class="drink-img-wrap">${imgHtml}</div>
+      <div class="drink-body">
+        <div class="drink-card-top">
+          <div class="drink-name">${drink.name}</div>
+          <span class="drink-tag">${drink.category}</span>
+        </div>
+        <div class="drink-caffeine-num">카페인 ${drink.caffeine}mg (Tall)</div>
+        <div class="drink-mini-bar-track">
+          <div class="drink-mini-bar-fill" style="width:${w}%"></div>
+        </div>
+        ${deadlineHtml}
+      </div>
+    </div>`;
+}
+
+/* ===================================================
+   LOADING ANIMATION
+   =================================================== */
+const LOADING_MESSAGES = [
+  '음료별 카페인 함량을 확인하고 있어요',
+  '반감기 공식으로 분해 시간을 계산하고 있어요',
+  '마실 수 있는 메뉴를 추려내고 있어요',
+  '최적의 추천 메뉴를 정리하고 있어요',
+];
+
+function showLoading(callback) {
+  const loadingEl  = document.getElementById('loading-section');
+  const resultEl   = document.getElementById('result-section');
+  const fillEl     = document.getElementById('loading-progress-fill');
+  const statusEl   = document.getElementById('loading-status');
+
+  // 결과 숨기고 로딩 표시
+  resultEl.classList.remove('visible');
+  loadingEl.classList.add('visible');
+  loadingEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // 프로그레스 바 초기화 후 3초 애니메이션
+  fillEl.style.transition = 'none';
+  fillEl.style.width = '0%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    fillEl.style.transition = 'width 3s cubic-bezier(0.4, 0, 0.2, 1)';
+    fillEl.style.width = '100%';
+  }));
+
+  // 상태 메시지 순환
+  let msgIdx = 0;
+  statusEl.textContent = LOADING_MESSAGES[0];
+  const msgTimer = setInterval(() => {
+    msgIdx = (msgIdx + 1) % LOADING_MESSAGES.length;
+    statusEl.style.opacity = '0';
+    setTimeout(() => {
+      statusEl.textContent = LOADING_MESSAGES[msgIdx];
+      statusEl.style.opacity = '1';
+    }, 200);
+  }, 800);
+
+  // 3초 후 결과 표시
+  setTimeout(() => {
+    clearInterval(msgTimer);
+    loadingEl.classList.remove('visible');
+    callback();
+  }, 3000);
+}
+
+/* ===================================================
+   CALCULATE & RENDER
+   =================================================== */
+function calculate() {
+  const sleepTimeStr = getSleepTimeStr();
+
+  showLoading(() => {
+  const nowMs = Date.now();
+  const sleepMs      = getSleepMs(sleepTimeStr);
+
+  const enriched   = DRINKS.map(d => {
+    const h       = hoursNeeded(d.caffeine);
+    const latestMs = h === 0 ? Infinity : sleepMs - h * 3600000;
+    return { ...d, latestMs, available: latestMs === Infinity || latestMs >= nowMs };
+  });
+
+  const available   = enriched.filter(d =>  d.available).sort((a, b) => b.caffeine - a.caffeine);
+  const unavailable = enriched.filter(d => !d.available).sort((a, b) => b.caffeine - a.caffeine);
+
+  /* 베스트 추천 */
+  const bestWrap = document.getElementById('best-pick-wrap');
+  if (available.length > 0) {
+    const best  = available[0];
+    const h     = hoursNeeded(best.caffeine);
+    const clr   = h === 0 ? null : formatTime(nowMs + h * 3600000);
+    const w     = barPct(best.caffeine);
+    bestWrap.innerHTML = `
+      <div class="best-pick-card">
+        <div class="best-pick-badge">🏆 지금 마시기 가장 좋은 선택</div>
+        <div class="best-pick-name">${best.emoji} ${best.name}</div>
+        <div class="best-pick-sub">${best.category} · Tall ${best.caffeine}mg</div>
+        <div class="caffeine-bar-wrap">
+          <div class="caffeine-bar-label"><span>카페인 함량</span><span>${best.caffeine}mg</span></div>
+          <div class="caffeine-bar-track">
+            <div class="caffeine-bar-fill" style="width:${w}%"></div>
+          </div>
+        </div>
+        <div class="best-pick-info">${
+          clr
+            ? `지금 마시면 <strong>${clr}</strong>쯤 카페인이 분해돼요 ☑️`
+            : `카페인이 적어 수면에 거의 영향을 주지 않아요 ☑️`
+        }</div>
+      </div>`;
+  } else {
+    bestWrap.innerHTML = `
+      <div class="no-drink-card">
+        <div class="nd-icon">😴</div>
+        <h3>지금은 커피 마시기엔 좀 늦었어요</h3>
+        <p>목표 수면 시간까지 여유가 부족해요.<br>디카페인이나 물 한 잔 어떨까요? 🌙</p>
+      </div>`;
+  }
+
+  /* 마실 수 있는 메뉴 */
+  const availSec = document.getElementById('available-section');
+  availSec.innerHTML = available.length > 0 ? `
+    <div class="section-header">
+      <span>✅</span>
+      <h2>지금 마실 수 있는 메뉴</h2>
+      <span class="count-badge">${available.length}개</span>
+    </div>
+    <div class="drink-grid">
+      ${available.map(d => buildDrinkCard(d, d.latestMs, nowMs)).join('')}
+    </div>` : '';
+
+  /* 마실 수 없는 메뉴 */
+  const unavailSec = document.getElementById('unavailable-section');
+  unavailSec.innerHTML = unavailable.length > 0 ? `
+    <hr class="section-divider" />
+    <div class="section-header">
+      <span>❌</span>
+      <h2>이 메뉴는 지금 너무 늦었어요</h2>
+      <span class="count-badge disabled">${unavailable.length}개</span>
+    </div>
+    <div class="drink-grid">
+      ${unavailable.map(d => buildDrinkCard(d, d.latestMs, nowMs)).join('')}
+    </div>` : '';
+
+  /* 결과 표시 & 스크롤 */
+  const rs = document.getElementById('result-section');
+  rs.classList.add('visible');
+  rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }); // showLoading 콜백 끝
+}
+
+/* ===================================================
+   MATH TOGGLE
+   =================================================== */
+function toggleMath() {
+  document.getElementById('math-body').classList.toggle('open');
+  document.getElementById('math-icon').classList.toggle('open');
+}
+
+/* ===================================================
+   INIT
+   =================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  initPickers();
+  updateCurrentTime();
+  setInterval(updateCurrentTime, 30000);
+});
+</script>
+
+</body>
+</html>

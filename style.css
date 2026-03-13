@@ -1,0 +1,530 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', system-ui, -apple-system, sans-serif;
+  background: #F2F3F5;
+  color: #1A1A2E;
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #E5E7EB;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo { font-weight: 800; font-size: 17px; color: #F5A623; }
+.header-nav { display: flex; gap: 24px; font-size: 14px; color: #6B7280; cursor: pointer; }
+.header-nav span:hover { color: #1A1A2E; }
+
+/* ===== MAIN LAYOUT ===== */
+.main-layout {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 24px 40px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ===== CARD BASE ===== */
+.my-league-card,
+.leaderboard-card,
+.guide-card,
+.reward-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+/* ===== SECTION 1: 나의 소속 리그 ===== */
+.my-league-card {
+  background: linear-gradient(135deg, #FFF8E7 0%, #FFF3CC 100%);
+  border: 1.5px solid #F5D76E;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-label {
+  font-size: 13px;
+  color: #6B7280;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.info-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #9CA3AF;
+  padding: 0;
+  line-height: 1;
+}
+.info-btn:hover { color: #F5A623; }
+
+.info-tooltip {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 28px;
+  background: #1F2937;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 10px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+.info-tooltip::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 12px;
+  width: 10px;
+  height: 10px;
+  background: #1F2937;
+  transform: rotate(45deg);
+}
+.info-btn:hover + .info-tooltip,
+.info-tooltip:hover { display: block; }
+
+.my-league-title {
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #1A1A2E;
+}
+.trophy-icon { font-size: 36px; }
+.gold-text { color: #C47D00; }
+
+.my-league-stats { display: flex; flex-direction: column; gap: 10px; }
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+.stat-icon { color: #9CA3AF; font-size: 13px; }
+.stat-label { color: #6B7280; }
+.stat-sep { color: #D1D5DB; }
+.stat-value { font-size: 22px; font-weight: 800; color: #1A1A2E; }
+
+/* ===== SECTION 2: 리더보드 ===== */
+.leaderboard-card { margin-bottom: 0; }
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px 14px;
+  border-bottom: 1px solid #F3F4F6;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.leaderboard-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 700;
+}
+.trophy-sm { font-size: 20px; }
+
+.countdown-wrap { display: flex; flex-direction: column; align-items: flex-end; }
+.countdown-label { font-size: 11px; color: #9CA3AF; }
+.countdown-timer {
+  font-size: 18px;
+  font-weight: 800;
+  color: #EF4444;
+  letter-spacing: -0.3px;
+}
+
+/* TABLE */
+.table-wrap { overflow-x: auto; }
+
+.league-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.league-table thead th {
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9CA3AF;
+  text-align: left;
+  background: #FAFAFA;
+  border-bottom: 1px solid #F3F4F6;
+  white-space: nowrap;
+}
+.league-table thead th:first-child { text-align: center; }
+
+.league-table tbody tr {
+  border-bottom: 1px solid #F9FAFB;
+  transition: background .15s;
+}
+.league-table tbody tr:hover { background: #FAFAFA; }
+
+.league-table tbody td {
+  padding: 12px 12px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* Rank cell */
+.rank-cell { text-align: center; position: relative; }
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 13px;
+}
+.rank-badge.rank-1 { background: #FFD700; color: #7A5900; }
+.rank-badge.rank-2 { background: #C0C0C0; color: #444; }
+.rank-badge.rank-3 { background: #CD7F32; color: #fff; }
+.rank-badge.rank-other { background: #F3F4F6; color: #6B7280; }
+.rank-badge.rank-zero { background: #E5E7EB; color: #9CA3AF; }
+
+/* Profile cell */
+.profile-cell { display: flex; align-items: center; gap: 10px; }
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.profile-info {}
+.profile-name { font-weight: 600; font-size: 14px; color: #1A1A2E; }
+.profile-tier { font-size: 11px; color: #9CA3AF; margin-top: 1px; }
+
+/* Me row */
+.row-me { background: #FFF8EE !important; }
+.row-me td { border-top: 2px solid #F5A623; border-bottom: 2px solid #F5A623; }
+.row-me td:first-child { border-left: 2px solid #F5A623; border-radius: 0; }
+.row-me td:last-child  { border-right: 2px solid #F5A623; }
+
+.me-badge {
+  display: inline-block;
+  background: #8B5CF6;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Badges cell */
+.badges-cell { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; }
+.badge-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.badge-more {
+  font-size: 12px;
+  color: #9CA3AF;
+  font-weight: 500;
+}
+.no-badge { font-size: 12px; color: #D1D5DB; }
+
+/* Best record cell */
+.record-cell { font-size: 13px; color: #6B7280; }
+.record-none { color: #D1D5DB; font-size: 12px; }
+
+/* EXP cell */
+.exp-cell { font-weight: 700; color: #1A1A2E; white-space: nowrap; }
+.exp-zero { color: #D1D5DB; }
+
+/* Divider rows */
+.divider-row td {
+  padding: 0;
+  border: none !important;
+  background: transparent !important;
+}
+.divider-row:hover { background: transparent !important; }
+
+.promotion-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #EFF6FF;
+  color: #2563EB;
+  font-size: 12px;
+  font-weight: 700;
+  border-top: 2px dashed #93C5FD;
+  border-bottom: 2px dashed #93C5FD;
+}
+.demotion-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #FEF2F2;
+  color: #DC2626;
+  font-size: 12px;
+  font-weight: 700;
+  border-top: 2px dashed #FCA5A5;
+  border-bottom: 2px dashed #FCA5A5;
+}
+
+/* Omit row */
+.omit-row td {
+  text-align: center;
+  padding: 14px 12px;
+  color: #9CA3AF;
+  font-size: 13px;
+  border-bottom: none !important;
+}
+.toggle-btn {
+  background: none;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #6B7280;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: all .15s;
+}
+.toggle-btn:hover { background: #F3F4F6; color: #374151; }
+
+/* Hidden rows */
+.row-hidden { display: none; }
+
+/* ===== SECTION 3: 리그 가이드 ===== */
+.guide-card { padding: 0; }
+.guide-btn {
+  width: 100%;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+  transition: background .15s;
+}
+.guide-btn:hover { background: #F9FAFB; }
+.arrow-icon {
+  font-size: 18px;
+  color: #6B7280;
+  transition: transform .15s;
+}
+.guide-btn:hover .arrow-icon { transform: translateX(3px); }
+
+/* ===== SECTION 4: 순위별 보상 ===== */
+.reward-card { padding: 20px; }
+.reward-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 14px;
+}
+
+.reward-table { width: 100%; border-collapse: collapse; }
+.reward-table tr { border-bottom: 1px solid #F3F4F6; }
+.reward-table tr:last-child { border-bottom: none; }
+.reward-table td {
+  padding: 10px 8px;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.reward-rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12px;
+}
+.reward-rank-1 { background: #FFD700; color: #7A5900; }
+.reward-rank-2 { background: #E5E7EB; color: #374151; }
+.reward-rank-3 { background: #F97316; color: #fff; }
+.reward-rank-range { background: #A7A7A7; color: #fff; font-size: 11px; }
+.reward-rank-zero { background: #E5E7EB; color: #9CA3AF; font-size: 11px; }
+
+.reward-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.reward-stars .star { color: #F5A623; font-size: 16px; }
+.reward-stars.dim { color: #D1D5DB; }
+.reward-stars.dim .star { color: #E5E7EB; }
+
+.reward-row-me { background: #FFF8EE; }
+.reward-row-me td { font-weight: 800; }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  width: min(480px, 92vw);
+  position: relative;
+  animation: slideUp .2s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: #F3F4F6;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #6B7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: #E5E7EB; }
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1A1A2E;
+}
+
+.modal-slides { position: relative; min-height: 200px; }
+
+.slide { display: none; }
+.slide.active { display: block; }
+
+.slide-placeholder {
+  background: #F3F4F6;
+  border-radius: 12px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #9CA3AF;
+}
+.slide-placeholder span { font-size: 16px; font-weight: 600; }
+.slide-placeholder p { font-size: 13px; }
+
+.modal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.nav-btn {
+  background: #F3F4F6;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  transition: background .15s;
+}
+.nav-btn:hover { background: #E5E7EB; }
+
+.slide-dots { display: flex; gap: 6px; }
+.slide-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D1D5DB;
+  cursor: pointer;
+  transition: background .15s, transform .15s;
+}
+.slide-dot.active { background: #F5A623; transform: scale(1.2); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    padding: 0 16px 32px;
+  }
+  .my-league-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .my-league-stats { flex-direction: row; flex-wrap: wrap; gap: 12px; }
+  .right-col { display: contents; }
+  .guide-card { order: -1; }
+  .leaderboard-header { flex-direction: column; align-items: flex-start; }
+  .countdown-wrap { align-items: flex-start; }
+}

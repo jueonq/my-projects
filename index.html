@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>주간 리그</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="header-logo">⚡ WeeklyLeague</span>
+      <nav class="header-nav">
+        <span>홈</span>
+        <span>랭킹</span>
+        <span>보상</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+
+      <!-- SECTION 1: 나의 소속 리그 -->
+      <section class="my-league-card" id="section-my-league">
+        <div class="my-league-left">
+          <div class="section-label">
+            나의 소속 리그
+            <button class="info-btn" id="infoBtn" aria-label="리그 안내">ⓘ</button>
+            <div class="info-tooltip" id="infoTooltip">
+              매주 월요일에 새로운 리그가 시작되며,<br>달성한 순위에 따라 보상이 지급됩니다.
+            </div>
+          </div>
+          <div class="my-league-title">
+            <span class="trophy-icon">🏆</span>
+            <span>현재 <strong class="gold-text">골드 리그</strong>에서 활약 중</span>
+          </div>
+        </div>
+        <div class="my-league-stats">
+          <div class="stat-row">
+            <span class="stat-icon">◎</span>
+            <span class="stat-label">이번주 획득 EXP</span>
+            <span class="stat-sep">|</span>
+            <span class="stat-value" id="myExp">3000</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-icon">◎</span>
+            <span class="stat-label">실시간 순위</span>
+            <span class="stat-sep">|</span>
+            <span class="stat-value" id="myRank">2위</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: 리더보드 -->
+      <section class="leaderboard-card" id="section-leaderboard">
+        <div class="leaderboard-header">
+          <div class="leaderboard-title">
+            <span class="trophy-sm">🏆</span>
+            골드 리그 리더 보드
+          </div>
+          <div class="countdown-wrap">
+            <span class="countdown-label">이번 리그 종료까지 남은 시간</span>
+            <span class="countdown-timer" id="countdown">3일 10시간 33분</span>
+          </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-wrap">
+          <table class="league-table">
+            <thead>
+              <tr>
+                <th>실시간 순위</th>
+                <th>프로필</th>
+                <th>획득 배지</th>
+                <th>최고 전적</th>
+                <th>이번 주 누적 EXP</th>
+              </tr>
+            </thead>
+            <tbody id="leagueTableBody">
+              <!-- JS로 동적 렌더 -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div><!-- /left-col -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+      <!-- SECTION 3: 리그 가이드 -->
+      <section class="guide-card" id="section-guide">
+        <button class="guide-btn" id="guideBtn">
+          리그 가이드 <span class="arrow-icon">→</span>
+        </button>
+      </section>
+
+      <!-- SECTION 4: 순위별 보상 -->
+      <section class="reward-card" id="section-reward">
+        <div class="reward-title">리그 종료 시 순위별 보상</div>
+        <table class="reward-table">
+          <tbody id="rewardTableBody">
+            <!-- JS로 동적 렌더 -->
+          </tbody>
+        </table>
+      </section>
+
+    </div><!-- /right-col -->
+
+  </main>
+
+  <!-- ===== MODAL: 리그 가이드 ===== -->
+  <div class="modal-overlay" id="guideModal" role="dialog" aria-modal="true" aria-label="리그 가이드">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose" aria-label="닫기">✕</button>
+      <div class="modal-title">리그 가이드</div>
+      <div class="modal-slides">
+        <div class="slide active">
+          <div class="slide-placeholder">
+            <span>슬라이드 1</span>
+            <p>리그 안내 내용이 들어갑니다.</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-placeholder">
+            <span>슬라이드 2</span>
+            <p>승급 / 강등 기준 안내</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-placeholder">
+            <span>슬라이드 3</span>
+            <p>보상 정책 안내</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-nav">
+        <button class="nav-btn" id="prevSlide">‹</button>
+        <div class="slide-dots" id="slideDots"></div>
+        <button class="nav-btn" id="nextSlide">›</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
