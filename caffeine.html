@@ -206,6 +206,47 @@
       margin-bottom: 16px;
     }
 
+    /* ===== SENSITIVITY SELECTOR ===== */
+    .sensitivity-wrap {
+      margin-bottom: 22px;
+    }
+    .sensitivity-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #9C7B6B;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .sensitivity-group {
+      display: flex;
+      gap: 8px;
+    }
+    .sens-btn {
+      flex: 1;
+      padding: 11px 6px;
+      border-radius: 14px;
+      border: 1.5px solid #D4B896;
+      background: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #6F4E37;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.12s;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .sens-btn:hover { background: #FEF3E8; }
+    .sens-btn.active {
+      background: #6F4E37;
+      color: #fff;
+      border-color: #6F4E37;
+      transform: scale(1.03);
+    }
+    .sens-btn .sens-icon { display: block; font-size: 1.15rem; margin-bottom: 2px; }
+    .sens-btn .sens-desc { display: block; font-size: 0.72rem; font-weight: 500; opacity: 0.75; margin-top: 2px; }
+    .sens-btn.active .sens-desc { opacity: 0.85; }
+
     /* ===== FORMULA HINT ===== */
     .formula-hint {
       background: #FEF3E8;
@@ -552,6 +593,28 @@
   <!-- 입력 카드 -->
   <section class="input-card">
     <div class="input-card-title">목표 수면 시간 설정</div>
+    <!-- 예민도 선택 -->
+    <div class="sensitivity-wrap">
+      <div class="sensitivity-label">내 카페인 민감도</div>
+      <div class="sensitivity-group">
+        <button class="sens-btn" data-sens="sensitive">
+          <span class="sens-icon">🌙</span>
+          예민해요
+          <span class="sens-desc">25mg 이하</span>
+        </button>
+        <button class="sens-btn active" data-sens="normal">
+          <span class="sens-icon">☕</span>
+          보통이에요
+          <span class="sens-desc">50mg 이하</span>
+        </button>
+        <button class="sens-btn" data-sens="strong">
+          <span class="sens-icon">💪</span>
+          강한 편이에요
+          <span class="sens-desc">75mg 이하</span>
+        </button>
+      </div>
+    </div>
+
     <div class="input-card-subtitle">자려는 시간</div>
 
     <!-- 컬럼 레이블 -->
@@ -581,7 +644,7 @@
 
     <div class="formula-hint">
       <span>🧪</span>
-      카페인 반감기 4시간 기준 · 체내 잔여 카페인 50mg 이하일 때 수면 가능
+      카페인 반감기 4시간 기준 · 체내 잔여 카페인 <span id="formula-hint-mg">50mg</span> 이하일 때 수면 가능
     </div>
   </section>
 
@@ -854,8 +917,26 @@ const DRINKS = [
 
 const MAX_CAFFEINE   = 215;
 const HALF_LIFE_H    = 4;
-const SAFE_THRESHOLD = 50;
 const URGENT_WIN_H   = 2;
+
+/* 예민도 설정 */
+const SENSITIVITY_MAP = { sensitive: 25, normal: 50, strong: 75 };
+let SAFE_THRESHOLD = 50; // 기본값 (보통)
+
+document.querySelectorAll('.sens-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sens-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    SAFE_THRESHOLD = SENSITIVITY_MAP[btn.dataset.sens];
+    // 공식 힌트 텍스트 업데이트
+    const hint = document.getElementById('formula-hint-mg');
+    if (hint) hint.textContent = SAFE_THRESHOLD + 'mg';
+    // 결과 표시 중이면 자동 재계산
+    if (document.getElementById('result-section').classList.contains('visible')) {
+      calculate();
+    }
+  });
+});
 
 /* ===================================================
    UTILS
