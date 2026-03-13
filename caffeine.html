@@ -356,6 +356,45 @@
       100% { background-position: -200% center; }
     }
 
+    /* ===== BRAND TABS ===== */
+    .brand-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .brand-tab {
+      flex: 1;
+      padding: 10px 8px;
+      border-radius: 20px;
+      border: 1.5px solid #D4B896;
+      background: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #6F4E37;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      letter-spacing: -0.01em;
+    }
+    .brand-tab:hover { background: #FEF3E8; }
+    .brand-tab.active { background: #6F4E37; color: #fff; border-color: #6F4E37; }
+    .brand-tab[data-brand="starbucks"].active { background: #00704A; border-color: #00704A; }
+    .brand-tab[data-brand="gongcha"].active   { background: #D4006B; border-color: #D4006B; }
+
+    /* 브랜드 뱃지 */
+    .brand-badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .brand-badge-starbucks { background: #00704A; color: #fff; }
+    .brand-badge-gongcha   { background: #D4006B; color: #fff; }
+
     /* ===== RESULT SECTION ===== */
     #result-section { display: none; }
     #result-section.visible { display: block; }
@@ -530,7 +569,7 @@
     .drink-deadline.urgent { color: #E8530A; font-weight: 700; }
     .drink-deadline.disabled-msg { color: #B09080; }
     .urgent-badge {
-      position: absolute; top: 8px; right: 8px;
+      position: absolute; top: 8px; left: 8px;
       background: #FFF3ED; color: #E8530A;
       border: 1px solid #FDBA8C; border-radius: 6px;
       font-size: 0.65rem; font-weight: 700; padding: 2px 6px;
@@ -669,6 +708,12 @@
 
   <!-- 결과 섹션 -->
   <section id="result-section">
+    <!-- 브랜드 필터 탭 -->
+    <div class="brand-tabs">
+      <button class="brand-tab active" data-brand="all">전체</button>
+      <button class="brand-tab" data-brand="starbucks">☕ 스타벅스</button>
+      <button class="brand-tab" data-brand="gongcha">🧋 공차</button>
+    </div>
     <div id="best-pick-wrap"></div>
     <div id="available-section"></div>
     <div id="unavailable-section"></div>
@@ -895,24 +940,35 @@ function getSleepTimeStr() {
    =================================================== */
 const IMG = 'https://image.istarbucks.co.kr';
 const DRINKS = [
-  { name: "나이트로 콜드브루",              caffeine: 215, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000479]_20250626095418324.jpg' },
-  { name: "아이스 아메리카노",              caffeine: 150, emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110563]_20250626094353711.jpg' },
-  { name: "아메리카노",                     caffeine: 150, emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[94]_20210430103337006.jpg' },
-  { name: "콜드브루",                       caffeine: 150, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000038]_20250626095744182.jpg' },
-  { name: "바닐라 크림 콜드브루",           caffeine: 110, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000487]_20250626095703208.jpg' },
-  { name: "돌체 콜드브루",                  caffeine: 110, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000002081]_20250626100020135.jpg' },
-  { name: "카페 라떼",                      caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[41]_20210415133833725.jpg' },
-  { name: "아이스 카페 라떼",               caffeine: 75,  emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110569]_20250626094801903.jpg' },
-  { name: "카라멜 마키아토",                caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[126197]_20210415154609863.jpg' },
-  { name: "아이스 카라멜 마키아토",         caffeine: 75,  emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110582]_20250626095111658.jpg' },
-  { name: "카푸치노",                       caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[38]_20210415154821846.jpg' },
-  { name: "카페 모카",                      caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[46]_20210415134438165.jpg' },
-  { name: "그린티 라떼",                    caffeine: 55,  emoji: "🍵", category: "티",         img: IMG+'/upload/store/skuimg/2021/04/[9200000002496]_20210419131039350.jpg' },
-  { name: "딸기 아사이 레모네이드",         caffeine: 45,  emoji: "🍓", category: "리프레셔",   img: IMG+'/upload/store/skuimg/2025/06/[9200000003763]_20250626093913823.jpg' },
-  { name: "망고 드래곤 프루트 레모네이드",  caffeine: 45,  emoji: "🥭", category: "리프레셔",   img: null },
-  { name: "핑크 드링크",                    caffeine: 45,  emoji: "🌸", category: "리프레셔",   img: null },
-  { name: "시그니처 핫 초콜릿",             caffeine: 25,  emoji: "🍫", category: "기타",       img: IMG+'/upload/store/skuimg/2021/04/[72]_20210415140949967.jpg' },
-  { name: "디카페인 아메리카노",            caffeine: 15,  emoji: "☕", category: "디카페인",   img: null },
+  /* ── 스타벅스 ── */
+  { brand: "starbucks", name: "나이트로 콜드브루",              caffeine: 215, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000479]_20250626095418324.jpg' },
+  { brand: "starbucks", name: "아이스 아메리카노",              caffeine: 150, emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110563]_20250626094353711.jpg' },
+  { brand: "starbucks", name: "아메리카노",                     caffeine: 150, emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[94]_20210430103337006.jpg' },
+  { brand: "starbucks", name: "콜드브루",                       caffeine: 150, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000038]_20250626095744182.jpg' },
+  { brand: "starbucks", name: "바닐라 크림 콜드브루",           caffeine: 110, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000000487]_20250626095703208.jpg' },
+  { brand: "starbucks", name: "돌체 콜드브루",                  caffeine: 110, emoji: "🧊", category: "콜드브루",   img: IMG+'/upload/store/skuimg/2025/06/[9200000002081]_20250626100020135.jpg' },
+  { brand: "starbucks", name: "카페 라떼",                      caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[41]_20210415133833725.jpg' },
+  { brand: "starbucks", name: "아이스 카페 라떼",               caffeine: 75,  emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110569]_20250626094801903.jpg' },
+  { brand: "starbucks", name: "카라멜 마키아토",                caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[126197]_20210415154609863.jpg' },
+  { brand: "starbucks", name: "아이스 카라멜 마키아토",         caffeine: 75,  emoji: "🧊", category: "에스프레소", img: IMG+'/upload/store/skuimg/2025/06/[110582]_20250626095111658.jpg' },
+  { brand: "starbucks", name: "카푸치노",                       caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[38]_20210415154821846.jpg' },
+  { brand: "starbucks", name: "카페 모카",                      caffeine: 75,  emoji: "☕", category: "에스프레소", img: IMG+'/upload/store/skuimg/2021/04/[46]_20210415134438165.jpg' },
+  { brand: "starbucks", name: "그린티 라떼",                    caffeine: 55,  emoji: "🍵", category: "티",         img: IMG+'/upload/store/skuimg/2021/04/[9200000002496]_20210419131039350.jpg' },
+  { brand: "starbucks", name: "딸기 아사이 레모네이드",         caffeine: 45,  emoji: "🍓", category: "리프레셔",   img: IMG+'/upload/store/skuimg/2025/06/[9200000003763]_20250626093913823.jpg' },
+  { brand: "starbucks", name: "망고 드래곤 프루트 레모네이드",  caffeine: 45,  emoji: "🥭", category: "리프레셔",   img: null },
+  { brand: "starbucks", name: "핑크 드링크",                    caffeine: 45,  emoji: "🌸", category: "리프레셔",   img: null },
+  { brand: "starbucks", name: "시그니처 핫 초콜릿",             caffeine: 25,  emoji: "🍫", category: "기타",       img: IMG+'/upload/store/skuimg/2021/04/[72]_20210415140949967.jpg' },
+  { brand: "starbucks", name: "디카페인 아메리카노",            caffeine: 15,  emoji: "☕", category: "디카페인",   img: null },
+
+  /* ── 공차 (L사이즈 아이스 기준) ── */
+  { brand: "gongcha", name: "얼그레이 밀크티",     caffeine: 77,  emoji: "🧋", category: "밀크티", img: null },
+  { brand: "gongcha", name: "블랙 밀크티",         caffeine: 59,  emoji: "🧋", category: "밀크티", img: null },
+  { brand: "gongcha", name: "제주 그린 밀크티",    caffeine: 49,  emoji: "🍵", category: "밀크티", img: null },
+  { brand: "gongcha", name: "쟈스민 그린 밀크티",  caffeine: 44,  emoji: "🍵", category: "밀크티", img: null },
+  { brand: "gongcha", name: "우롱 밀크티",         caffeine: 41,  emoji: "🧋", category: "밀크티", img: null },
+  { brand: "gongcha", name: "브라운슈가 밀크티",   caffeine: 40,  emoji: "🧋", category: "밀크티", img: null },
+  { brand: "gongcha", name: "딸기 밀크티",         caffeine: 30,  emoji: "🍓", category: "밀크티", img: null },
+  { brand: "gongcha", name: "타로 밀크티",         caffeine: 10,  emoji: "🟣", category: "밀크티", img: null },
 ];
 
 const MAX_CAFFEINE   = 215;
@@ -922,6 +978,20 @@ const URGENT_WIN_H   = 2;
 /* 예민도 설정 */
 const SENSITIVITY_MAP = { sensitive: 25, normal: 50, strong: 75 };
 let SAFE_THRESHOLD = 50; // 기본값 (보통)
+
+/* 브랜드 필터 */
+let currentBrand = 'all';
+
+document.querySelectorAll('.brand-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.brand-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentBrand = tab.dataset.brand;
+    if (document.getElementById('result-section').classList.contains('visible')) {
+      renderResults();
+    }
+  });
+});
 
 document.querySelectorAll('.sens-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1014,16 +1084,23 @@ function buildDrinkCard(drink, latestMs, nowMs) {
        <div class="drink-img-fallback">${drink.emoji}</div>`
     : `<div class="drink-img-fallback" style="display:flex">${drink.emoji}</div>`;
 
+  const brandBadge = drink.brand === 'starbucks'
+    ? `<div class="brand-badge brand-badge-starbucks">STARBUCKS</div>`
+    : `<div class="brand-badge brand-badge-gongcha">공차</div>`;
+
+  const sizeLabel = drink.brand === 'gongcha' ? 'L' : 'Tall';
+
   return `
     <div class="drink-card${ok ? '' : ' disabled'}">
       ${urgent ? '<div class="urgent-badge">마감 임박</div>' : ''}
+      ${brandBadge}
       <div class="drink-img-wrap">${imgHtml}</div>
       <div class="drink-body">
         <div class="drink-card-top">
           <div class="drink-name">${drink.name}</div>
           <span class="drink-tag">${drink.category}</span>
         </div>
-        <div class="drink-caffeine-num">카페인 ${drink.caffeine}mg (Tall)</div>
+        <div class="drink-caffeine-num">카페인 ${drink.caffeine}mg (${sizeLabel})</div>
         <div class="drink-mini-bar-track">
           <div class="drink-mini-bar-fill" style="width:${w}%"></div>
         </div>
@@ -1084,34 +1161,35 @@ function showLoading(callback) {
 /* ===================================================
    CALCULATE & RENDER
    =================================================== */
-function calculate() {
-  const sleepTimeStr = getSleepTimeStr();
+/* enriched 데이터 캐시 (renderResults에서 재사용) */
+let _enrichedCache = [];
+let _nowMsCache    = 0;
 
-  showLoading(() => {
-  const nowMs = Date.now();
-  const sleepMs      = getSleepMs(sleepTimeStr);
+function renderResults() {
+  const enriched    = _enrichedCache;
+  const nowMs       = _nowMsCache;
 
-  const enriched   = DRINKS.map(d => {
-    const h       = hoursNeeded(d.caffeine);
-    const latestMs = h === 0 ? Infinity : sleepMs - h * 3600000;
-    return { ...d, latestMs, available: latestMs === Infinity || latestMs >= nowMs };
-  });
+  /* 브랜드 필터 적용 */
+  const filtered    = currentBrand === 'all'
+    ? enriched
+    : enriched.filter(d => d.brand === currentBrand);
 
-  const available   = enriched.filter(d =>  d.available).sort((a, b) => b.caffeine - a.caffeine);
-  const unavailable = enriched.filter(d => !d.available).sort((a, b) => b.caffeine - a.caffeine);
+  const available   = filtered.filter(d =>  d.available).sort((a, b) => b.caffeine - a.caffeine);
+  const unavailable = filtered.filter(d => !d.available).sort((a, b) => b.caffeine - a.caffeine);
 
   /* 베스트 추천 */
   const bestWrap = document.getElementById('best-pick-wrap');
   if (available.length > 0) {
-    const best  = available[0];
-    const h     = hoursNeeded(best.caffeine);
-    const clr   = h === 0 ? null : formatTime(nowMs + h * 3600000);
-    const w     = barPct(best.caffeine);
+    const best     = available[0];
+    const h        = hoursNeeded(best.caffeine);
+    const clr      = h === 0 ? null : formatTime(nowMs + h * 3600000);
+    const w        = barPct(best.caffeine);
+    const sizeLabel = best.brand === 'gongcha' ? 'L' : 'Tall';
     bestWrap.innerHTML = `
       <div class="best-pick-card">
         <div class="best-pick-badge">🏆 지금 마시기 가장 좋은 선택</div>
         <div class="best-pick-name">${best.emoji} ${best.name}</div>
-        <div class="best-pick-sub">${best.category} · Tall ${best.caffeine}mg</div>
+        <div class="best-pick-sub">${best.category} · ${sizeLabel} ${best.caffeine}mg</div>
         <div class="caffeine-bar-wrap">
           <div class="caffeine-bar-label"><span>카페인 함량</span><span>${best.caffeine}mg</span></div>
           <div class="caffeine-bar-track">
@@ -1157,11 +1235,29 @@ function calculate() {
     <div class="drink-grid">
       ${unavailable.map(d => buildDrinkCard(d, d.latestMs, nowMs)).join('')}
     </div>` : '';
+}
 
-  /* 결과 표시 & 스크롤 */
-  const rs = document.getElementById('result-section');
-  rs.classList.add('visible');
-  rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+function calculate() {
+  const sleepTimeStr = getSleepTimeStr();
+
+  showLoading(() => {
+    const nowMs   = Date.now();
+    const sleepMs = getSleepMs(sleepTimeStr);
+
+    /* enriched 계산 후 캐시 저장 */
+    _enrichedCache = DRINKS.map(d => {
+      const h        = hoursNeeded(d.caffeine);
+      const latestMs = h === 0 ? Infinity : sleepMs - h * 3600000;
+      return { ...d, latestMs, available: latestMs === Infinity || latestMs >= nowMs };
+    });
+    _nowMsCache = nowMs;
+
+    renderResults();
+
+    /* 결과 표시 & 스크롤 */
+    const rs = document.getElementById('result-section');
+    rs.classList.add('visible');
+    rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }); // showLoading 콜백 끝
 }
 
