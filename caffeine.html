@@ -60,7 +60,7 @@
       margin-bottom: 6px;
     }
     .hero p {
-      font-size: 0.95rem;
+      font-size: 0.82rem;
       color: #9C7B6B;
       line-height: 1.6;
     }
@@ -631,14 +631,12 @@
 
   <!-- 히어로 타이틀 -->
   <section class="hero">
-    <div class="hero-icon">☕</div>
     <h1>오늘 마지막 커피, 뭐 마실까?</h1>
     <p>자려는 시간을 설정하면<br>지금 마실 수 있는 음료 메뉴를 추천해드려요.</p>
   </section>
 
   <!-- 입력 카드 -->
   <section class="input-card">
-    <div class="input-card-title">목표 수면 시간 설정</div>
     <!-- 예민도 선택 -->
     <div class="sensitivity-wrap">
       <div class="sensitivity-label">내 카페인 민감도</div>
@@ -659,13 +657,6 @@
     </div>
 
     <div class="input-card-subtitle">자려는 시간</div>
-
-    <!-- 컬럼 레이블 -->
-    <div class="picker-col-labels">
-      <div class="picker-col-label">오전 / 오후</div>
-      <div class="picker-col-label">시</div>
-      <div class="picker-col-label">분</div>
-    </div>
 
     <!-- 다이얼 피커 -->
     <div class="picker-outer">
@@ -1454,8 +1445,8 @@ function renderResults() {
         </div>
         <div class="best-pick-info">${
           clr
-            ? `지금 마시면 <strong>${clr}</strong>쯤 카페인이 분해돼요 ☑️`
-            : `카페인이 적어 수면에 거의 영향을 주지 않아요 ☑️`
+            ? `지금 마시면 <strong>${clr}</strong>쯤 카페인이 분해돼요`
+            : `카페인이 적어 수면에 거의 영향을 주지 않아요`
         }</div>
       </div>`;
   } else {
