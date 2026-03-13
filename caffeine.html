@@ -383,8 +383,9 @@
     }
     .brand-tab:hover { background: #FEF3E8; }
     .brand-tab.active { background: #6F4E37; color: #fff; border-color: #6F4E37; }
-    .brand-tab[data-brand="starbucks"].active { background: #00704A; border-color: #00704A; }
-    .brand-tab[data-brand="gongcha"].active   { background: #D4006B; border-color: #D4006B; }
+    .brand-tab[data-brand="starbucks"].active  { background: #00704A; border-color: #00704A; }
+    .brand-tab[data-brand="gongcha"].active    { background: #D4006B; border-color: #D4006B; }
+    .brand-tab[data-brand="banapresso"].active { background: #FF4766; border-color: #FF4766; }
 
     /* 브랜드 뱃지 */
     .brand-badge {
@@ -397,8 +398,9 @@
       letter-spacing: 0.03em;
       text-transform: uppercase;
     }
-    .brand-badge-starbucks { background: #00704A; color: #fff; }
-    .brand-badge-gongcha   { background: #D4006B; color: #fff; }
+    .brand-badge-starbucks  { background: #00704A; color: #fff; }
+    .brand-badge-gongcha    { background: #D4006B; color: #fff; }
+    .brand-badge-banapresso { background: #FF4766; color: #fff; }
 
     /* ===== RESULT SECTION ===== */
     #result-section { display: none; }
@@ -715,6 +717,7 @@
       <button class="brand-tab active" data-brand="all">전체</button>
       <button class="brand-tab" data-brand="starbucks">☕ 스타벅스</button>
       <button class="brand-tab" data-brand="gongcha">🧋 공차</button>
+      <button class="brand-tab" data-brand="banapresso">🍌 바나프레소</button>
     </div>
     <div id="best-pick-wrap"></div>
     <div id="available-section"></div>
@@ -1019,6 +1022,207 @@ const DRINKS = [
   { brand: "gongcha", name: "레몬 요구르트",            caffeine: 0,   emoji: "🍋", category: "프룻티",   img: "https://www.gong-cha.co.kr/uploads/product/20240429/DV43P0nxuhldAXUp_20240429.png" },
   { brand: "gongcha", name: "망고 주스",                caffeine: 0,   emoji: "🥭", category: "프룻티",   img: "https://www.gong-cha.co.kr/uploads/product/20231115/qB9jP6UMAY2fyzS4_20231115.png" },
   { brand: "gongcha", name: "패션 프룻 히비스커스",     caffeine: 0,   emoji: "🌺", category: "프룻티",   img: "https://www.gong-cha.co.kr/uploads/product/20231115/1xHFr7AYEX4esjtl_20231115.png" },
+
+  // ─── 바나프레소 커피 ───────────────────────────────────────────────
+  { brand: "banapresso", name: "아메리카노",           caffeine: 125, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483393071.jpg" },
+  { brand: "banapresso", name: "시그니처아메리카노",   caffeine: 125, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483411048.jpg" },
+  { brand: "banapresso", name: "바나리카노",           caffeine: 125, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483455094.jpg" },
+  { brand: "banapresso", name: "카페라떼",             caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484014464.jpg" },
+  { brand: "banapresso", name: "크리미라떼",           caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772577703177.jpg" },
+  { brand: "banapresso", name: "바닐라라떼",           caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484278361.jpg" },
+  { brand: "banapresso", name: "카푸치노",             caffeine: 75,  emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250929_1759104417203.jpg" },
+  { brand: "banapresso", name: "클래식밀크커피",       caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483937670.jpg" },
+  { brand: "banapresso", name: "허니카페라떼",         caffeine: 100, emoji: "🍯", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250929_1759104463293.jpg" },
+  { brand: "banapresso", name: "스위티소금라떼",       caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484528428.jpg" },
+  { brand: "banapresso", name: "연유라떼",             caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484617950.jpg" },
+  { brand: "banapresso", name: "카페모카",             caffeine: 75,  emoji: "🍫", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484658760.jpg" },
+  { brand: "banapresso", name: "밀크카라멜마키아또",   caffeine: 75,  emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484707505.jpg" },
+  { brand: "banapresso", name: "화이트아메리카노",     caffeine: 125, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483899798.jpg" },
+  { brand: "banapresso", name: "헛개리카노",           caffeine: 125, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483808226.jpg" },
+  { brand: "banapresso", name: "허니아메리카노",       caffeine: 125, emoji: "🍯", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483508394.jpg" },
+  { brand: "banapresso", name: "핑크아메리카노",       caffeine: 125, emoji: "🌸", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250826_1756174300499.jpg" },
+  { brand: "banapresso", name: "유자셔벗아메리카노",   caffeine: 125, emoji: "🍋", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483714564.jpg" },
+  { brand: "banapresso", name: "핑크카페라떼",         caffeine: 100, emoji: "🌸", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250826_1756174320574.jpg" },
+  { brand: "banapresso", name: "피스타치오카페라떼",   caffeine: 100, emoji: "🌿", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484784448.jpg" },
+  { brand: "banapresso", name: "시나몬라떼",           caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2048_1760332786765.jpg" },
+  { brand: "banapresso", name: "헛개크리미라떼",       caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484237302.jpg" },
+  { brand: "banapresso", name: "에스프레소",           caffeine: 75,  emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485097146.jpg" },
+  { brand: "banapresso", name: "토피넛호핑슈페너",     caffeine: 100, emoji: "☕", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260127_1769490306599.jpg" },
+  { brand: "banapresso", name: "아샷추",               caffeine: 100, emoji: "🍵", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260227_1772161289278.jpg" },
+  { brand: "banapresso", name: "콜드브루",             caffeine: 150, emoji: "🧊", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485167080.jpg" },
+  { brand: "banapresso", name: "콜드브루 라떼",        caffeine: 150, emoji: "🧊", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485212714.jpg" },
+  { brand: "banapresso", name: "바닐라 콜드브루",      caffeine: 150, emoji: "🧊", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485243760.jpg" },
+  { brand: "banapresso", name: "제주말차 콜드브루",    caffeine: 150, emoji: "🍵", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2064_1764284360989.jpg" },
+  { brand: "banapresso", name: "돌체 콜드브루",        caffeine: 150, emoji: "🧊", category: "커피",        img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485302744.jpg" },
+
+  // ─── 바나프레소 저당 & 제로슈가 ──────────────────────────────────
+  { brand: "banapresso", name: "저당 바닐라라떼",                  caffeine: 100, emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250908_1757288122899.jpg" },
+  { brand: "banapresso", name: "제로슈가 스위트아메리카노",        caffeine: 125, emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483760950.jpg" },
+  { brand: "banapresso", name: "저당 크리미라떼",                  caffeine: 100, emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772578258285.jpg" },
+  { brand: "banapresso", name: "제로슈가 아샷추",                  caffeine: 100, emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260227_1772166872036.jpg" },
+  { brand: "banapresso", name: "저당 바닐라 콜드브루",             caffeine: 150, emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250908_1757288231573.jpg" },
+  { brand: "banapresso", name: "저당 디카페인 바닐라라떼",         caffeine: 5,   emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250908_1757288142983.jpg" },
+  { brand: "banapresso", name: "디카페인 제로슈가 스위트아메리카노", caffeine: 5, emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483783039.jpg" },
+  { brand: "banapresso", name: "디카페인 저당 크리미라떼",         caffeine: 5,   emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772578446721.jpg" },
+  { brand: "banapresso", name: "디카페인 제로슈가 아샷추",         caffeine: 5,   emoji: "🌿", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772577420390.jpg" },
+  { brand: "banapresso", name: "저당 얼그레이밀크티",              caffeine: 40,  emoji: "🍵", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250917_1758065861328.jpg" },
+  { brand: "banapresso", name: "저당 얼그레이버블티",              caffeine: 40,  emoji: "🍵", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250917_1758065920056.jpg" },
+  { brand: "banapresso", name: "제로슈가 레몬아이스티",            caffeine: 30,  emoji: "🍋", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492944884.jpg" },
+  { brand: "banapresso", name: "제로슈가 복숭아아이스티",          caffeine: 30,  emoji: "🍑", category: "저당&제로슈가", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492975682.jpg" },
+
+  // ─── 바나프레소 디카페인 커피 ─────────────────────────────────────
+  { brand: "banapresso", name: "디카페인 아메리카노",          caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483431964.jpg" },
+  { brand: "banapresso", name: "디카페인 바나리카노",          caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483473824.jpg" },
+  { brand: "banapresso", name: "디카페인 카페라떼",            caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484041833.jpg" },
+  { brand: "banapresso", name: "디카페인 크리미라떼",          caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772578419320.jpg" },
+  { brand: "banapresso", name: "디카페인 바닐라라떼",          caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484324812.jpg" },
+  { brand: "banapresso", name: "디카페인 카푸치노",            caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250929_1759104384234.jpg" },
+  { brand: "banapresso", name: "디카페인 토피넛호핑슈페너",    caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260127_1769490334538.jpg" },
+  { brand: "banapresso", name: "디카페인 허니카페라떼",        caffeine: 5, emoji: "🍯", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250929_1759104494912.jpg" },
+  { brand: "banapresso", name: "디카페인 스위티소금라떼",      caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484554204.jpg" },
+  { brand: "banapresso", name: "디카페인 연유라떼",            caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484635474.jpg" },
+  { brand: "banapresso", name: "디카페인 카페모카",            caffeine: 5, emoji: "🍫", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484677090.jpg" },
+  { brand: "banapresso", name: "디카페인 밀크카라멜마키아또",  caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484725146.jpg" },
+  { brand: "banapresso", name: "디카페인 화이트아메리카노",    caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483916353.jpg" },
+  { brand: "banapresso", name: "디카페인 헛개리카노",          caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483830035.jpg" },
+  { brand: "banapresso", name: "디카페인 허니아메리카노",      caffeine: 5, emoji: "🍯", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483528314.jpg" },
+  { brand: "banapresso", name: "디카페인 핑크아메리카노",      caffeine: 5, emoji: "🌸", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250826_1756174339522.jpg" },
+  { brand: "banapresso", name: "디카페인 유자셔벗아메리카노",  caffeine: 5, emoji: "🍋", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483734534.jpg" },
+  { brand: "banapresso", name: "디카페인 핑크카페라떼",        caffeine: 5, emoji: "🌸", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250826_1756174355269.jpg" },
+  { brand: "banapresso", name: "디카페인 피스타치오카페라떼",  caffeine: 5, emoji: "🌿", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484810850.jpg" },
+  { brand: "banapresso", name: "디카페인 시나몬라떼",          caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2048_1760332813393.jpg" },
+  { brand: "banapresso", name: "디카페인 헛개크리미라떼",      caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484256022.jpg" },
+  { brand: "banapresso", name: "디카페인 에스프레소",          caffeine: 5, emoji: "☕", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485115828.jpg" },
+  { brand: "banapresso", name: "디카페인 아샷추",              caffeine: 5, emoji: "🍵", category: "디카페인", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772578528785.jpg" },
+
+  // ─── 바나프레소 빅바나 ────────────────────────────────────────────
+  { brand: "banapresso", name: "빅바나 카페라떼",              caffeine: 100, emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484060564.jpg" },
+  { brand: "banapresso", name: "빅바나 크리미라떼",            caffeine: 100, emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484176528.jpg" },
+  { brand: "banapresso", name: "빅바나 바닐라라떼",            caffeine: 100, emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484420060.jpg" },
+  { brand: "banapresso", name: "저당 빅바나 바닐라라떼",       caffeine: 100, emoji: "🌿", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250908_1757288188841.jpg" },
+  { brand: "banapresso", name: "빅바나 클래식밀크커피",        caffeine: 100, emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483986870.jpg" },
+  { brand: "banapresso", name: "빅바나 헛개리카노",            caffeine: 125, emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483860951.jpg" },
+  { brand: "banapresso", name: "빅바나 저당 크리미라떼",       caffeine: 100, emoji: "🌿", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260127_1769489602830.jpg" },
+  { brand: "banapresso", name: "빅바나 아샷추",                caffeine: 100, emoji: "🍵", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260303_1772500412179.jpg" },
+  { brand: "banapresso", name: "빅바나 제로슈가 아샷추",       caffeine: 100, emoji: "🌿", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772577457080.jpg" },
+  { brand: "banapresso", name: "빅바나 콜드브루",              caffeine: 150, emoji: "🧊", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485186422.jpg" },
+  { brand: "banapresso", name: "빅바나 디카페인 카페라떼",     caffeine: 5,   emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484080280.jpg" },
+  { brand: "banapresso", name: "빅바나 디카페인 크리미라떼",   caffeine: 5,   emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484198192.jpg" },
+  { brand: "banapresso", name: "빅바나 디카페인 바닐라라떼",   caffeine: 5,   emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755484464250.jpg" },
+  { brand: "banapresso", name: "저당 빅바나 디카페인 바닐라라떼", caffeine: 5, emoji: "🌿", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250908_1757288213943.jpg" },
+  { brand: "banapresso", name: "빅바나 디카페인 헛개리카노",   caffeine: 5,   emoji: "🥛", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755483880438.jpg" },
+  { brand: "banapresso", name: "빅바나 디카페인 저당 크리미라떼", caffeine: 5, emoji: "🌿", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260127_1769490125095.jpg" },
+  { brand: "banapresso", name: "빅바나 디카페인 아샷추",       caffeine: 5,   emoji: "🍵", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772578563587.jpg" },
+  { brand: "banapresso", name: "빅바나 디카페인 제로슈가 아샷추", caffeine: 5, emoji: "🌿", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772577488984.jpg" },
+  { brand: "banapresso", name: "빅바나 프로틴미숫가루라떼",    caffeine: 0,   emoji: "💪", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485765501.jpg" },
+  { brand: "banapresso", name: "빅바나 리얼초코",              caffeine: 0,   emoji: "🍫", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755486054113.jpg" },
+  { brand: "banapresso", name: "빅바나 오곡미숫가루라떼",      caffeine: 0,   emoji: "🌾", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260127_1769490079604.jpg" },
+  { brand: "banapresso", name: "빅바나 헛개차",                caffeine: 0,   emoji: "🌿", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492862766.jpg" },
+  { brand: "banapresso", name: "빅바나 복숭아아이스티",        caffeine: 30,  emoji: "🍑", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_203703_1764718823930.jpg" },
+  { brand: "banapresso", name: "빅바나 제로슈가 레몬아이스티", caffeine: 30,  emoji: "🍋", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492960412.jpg" },
+  { brand: "banapresso", name: "빅바나 제로슈가 복숭아아이스티", caffeine: 30, emoji: "🍑", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492993602.jpg" },
+  { brand: "banapresso", name: "빅바나 얼음동동식혜",          caffeine: 0,   emoji: "🧊", category: "빅바나", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493262582.jpg" },
+
+  // ─── 바나프레소 논커피 라떼 ───────────────────────────────────────
+  { brand: "banapresso", name: "두바이초코라떼",    caffeine: 0,  emoji: "🍫", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260119_1768776002671.jpg" },
+  { brand: "banapresso", name: "제주말차라떼",      caffeine: 30, emoji: "🍵", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485337990.jpg" },
+  { brand: "banapresso", name: "제주말차딸기라떼",  caffeine: 30, emoji: "🍵", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_203603_1762151327611.jpg" },
+  { brand: "banapresso", name: "딸기크리미라떼",    caffeine: 0,  emoji: "🍓", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485364767.jpg" },
+  { brand: "banapresso", name: "제주말차크리미라떼", caffeine: 30, emoji: "🍵", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485379701.jpg" },
+  { brand: "banapresso", name: "영암고구마라떼",    caffeine: 0,  emoji: "🍠", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485733762.jpg" },
+  { brand: "banapresso", name: "프로틴미숫가루라떼", caffeine: 0, emoji: "💪", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485749536.jpg" },
+  { brand: "banapresso", name: "얼그레이밀크티",    caffeine: 40, emoji: "🍵", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485808969.jpg" },
+  { brand: "banapresso", name: "얼그레이버블티",    caffeine: 40, emoji: "🧋", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485972137.jpg" },
+  { brand: "banapresso", name: "흑당밀크티",        caffeine: 40, emoji: "🧋", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755486002487.jpg" },
+  { brand: "banapresso", name: "흑당버블티",        caffeine: 40, emoji: "🧋", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755486018415.jpg" },
+  { brand: "banapresso", name: "헛개버블티",        caffeine: 0,  emoji: "🧋", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485703344.jpg" },
+  { brand: "banapresso", name: "단짠치즈티라떼",    caffeine: 40, emoji: "🧀", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485686458.jpg" },
+  { brand: "banapresso", name: "리얼초코",          caffeine: 0,  emoji: "🍫", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755486037347.jpg" },
+  { brand: "banapresso", name: "토피넛라떼",        caffeine: 0,  emoji: "🥜", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755486147609.jpg" },
+  { brand: "banapresso", name: "피스타치오라떼",    caffeine: 0,  emoji: "🌿", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487009113.jpg" },
+  { brand: "banapresso", name: "통팥밀크티",        caffeine: 40, emoji: "🧋", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2056_1766109412412.jpg" },
+  { brand: "banapresso", name: "블랙빈라떼",        caffeine: 0,  emoji: "🫘", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485720145.jpg" },
+  { brand: "banapresso", name: "딸기라떼",          caffeine: 0,  emoji: "🍓", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487023915.jpg" },
+  { brand: "banapresso", name: "홍시라떼",          caffeine: 0,  emoji: "🍊", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487037585.jpg" },
+  { brand: "banapresso", name: "통팥라떼",          caffeine: 0,  emoji: "🫘", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2056_1766109458203.jpg" },
+  { brand: "banapresso", name: "오곡미숫가루라떼",  caffeine: 0,  emoji: "🌾", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260304_1772577671665.jpg" },
+  { brand: "banapresso", name: "딸기크림밀크티",    caffeine: 40, emoji: "🍓", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260113_1768257368488.jpg" },
+  { brand: "banapresso", name: "생딸기라떼",        caffeine: 0,  emoji: "🍓", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260225_1772004009415.jpg" },
+  { brand: "banapresso", name: "멜론라떼",          caffeine: 0,  emoji: "🍈", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755485351024.jpg" },
+  { brand: "banapresso", name: "녹차라떼",          caffeine: 30, emoji: "🍵", category: "논커피라떼", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755486977527.jpg" },
+
+  // ─── 바나프레소 주스 & 드링크 ────────────────────────────────────
+  { brand: "banapresso", name: "탐라는감귤생과일쥬스",  caffeine: 0, emoji: "🍊", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2063_1761613773430.jpg" },
+  { brand: "banapresso", name: "탐라는감귤요거트드링크", caffeine: 0, emoji: "🍊", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2063_1761613790497.jpg" },
+  { brand: "banapresso", name: "토마토생과일쥬스",      caffeine: 0, emoji: "🍅", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487095689.jpg" },
+  { brand: "banapresso", name: "딸기쥬스",              caffeine: 0, emoji: "🍓", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487107965.jpg" },
+  { brand: "banapresso", name: "망고쥬스",              caffeine: 0, emoji: "🥭", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487121681.jpg" },
+  { brand: "banapresso", name: "홍시쥬스",              caffeine: 0, emoji: "🍊", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487132659.jpg" },
+  { brand: "banapresso", name: "복숭아요거트드링크",    caffeine: 0, emoji: "🍑", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487145785.jpg" },
+  { brand: "banapresso", name: "딸기요거트드링크",      caffeine: 0, emoji: "🍓", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487156721.jpg" },
+  { brand: "banapresso", name: "플레인요거트드링크",    caffeine: 0, emoji: "🥛", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487167541.jpg" },
+  { brand: "banapresso", name: "생딸기쥬스",            caffeine: 0, emoji: "🍓", category: "주스&드링크", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20260113_1768257428375.jpg" },
+
+  // ─── 바나프레소 바나치노 & 스무디 ────────────────────────────────
+  { brand: "banapresso", name: "딸기요거트스무디",      caffeine: 0,  emoji: "🍓", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487205487.jpg" },
+  { brand: "banapresso", name: "플레인요거트스무디",    caffeine: 0,  emoji: "🥛", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487532365.jpg" },
+  { brand: "banapresso", name: "레몬요거트스무디",      caffeine: 0,  emoji: "🍋", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487551391.jpg" },
+  { brand: "banapresso", name: "망고요거트스무디",      caffeine: 0,  emoji: "🥭", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487626137.jpg" },
+  { brand: "banapresso", name: "탐라는감귤스무디",      caffeine: 0,  emoji: "🍊", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487184055.jpg" },
+  { brand: "banapresso", name: "제주말차바나치노",      caffeine: 30, emoji: "🍵", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487216335.jpg" },
+  { brand: "banapresso", name: "꿀배스무디",            caffeine: 0,  emoji: "🍐", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487226679.jpg" },
+  { brand: "banapresso", name: "꿀자몽스무디",          caffeine: 0,  emoji: "🍊", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487242645.jpg" },
+  { brand: "banapresso", name: "토마토요구르트스무디",  caffeine: 0,  emoji: "🍅", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487565763.jpg" },
+  { brand: "banapresso", name: "밀크소다바나치노",      caffeine: 0,  emoji: "🥛", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487256387.jpg" },
+  { brand: "banapresso", name: "콜드브루바나치노",      caffeine: 65, emoji: "🧊", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487272121.jpg" },
+  { brand: "banapresso", name: "초콜릿칩쉐이크",        caffeine: 0,  emoji: "🍫", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487284201.jpg" },
+  { brand: "banapresso", name: "커피칩쉐이크",          caffeine: 65, emoji: "☕", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487298747.jpg" },
+  { brand: "banapresso", name: "망고치즈바나치노",      caffeine: 0,  emoji: "🥭", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487485377.jpg" },
+  { brand: "banapresso", name: "초코쉐이크",            caffeine: 0,  emoji: "🍫", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487500521.jpg" },
+  { brand: "banapresso", name: "바닐라쉐이크",          caffeine: 0,  emoji: "🥛", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487519561.jpg" },
+  { brand: "banapresso", name: "제주청귤레몬스무디",    caffeine: 0,  emoji: "🍋", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487640131.jpg" },
+  { brand: "banapresso", name: "딸기복숭아스무디",      caffeine: 0,  emoji: "🍓", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487655325.jpg" },
+  { brand: "banapresso", name: "딸기스무디",            caffeine: 0,  emoji: "🍓", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487671567.jpg" },
+  { brand: "banapresso", name: "망고스무디",            caffeine: 0,  emoji: "🥭", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487684077.jpg" },
+  { brand: "banapresso", name: "쿠앤크바나치노",        caffeine: 0,  emoji: "🍪", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487696475.jpg" },
+  { brand: "banapresso", name: "자바칩바나치노",        caffeine: 65, emoji: "☕", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487711345.jpg" },
+  { brand: "banapresso", name: "제주말차한라봉스무디",  caffeine: 30, emoji: "🍵", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487464801.jpg" },
+  { brand: "banapresso", name: "녹차바나치노",          caffeine: 30, emoji: "🍵", category: "바나치노&스무디", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487785405.jpg" },
+
+  // ─── 바나프레소 티 & 에이드 ──────────────────────────────────────
+  { brand: "banapresso", name: "레드뱅쇼",              caffeine: 0,  emoji: "🍷", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250929_1759104583210.jpg" },
+  { brand: "banapresso", name: "대추쌍화차",            caffeine: 0,  emoji: "🍵", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250929_1759104619119.jpg" },
+  { brand: "banapresso", name: "복숭아아이스티",        caffeine: 30, emoji: "🍑", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_2064_1764284708969.jpg" },
+  { brand: "banapresso", name: "제주말차유자티",        caffeine: 30, emoji: "🍵", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_203603_1762151461150.jpg" },
+  { brand: "banapresso", name: "루이보스오렌지",        caffeine: 0,  emoji: "🍊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250929_1759104541014.jpg" },
+  { brand: "banapresso", name: "탐라는감귤티",          caffeine: 0,  emoji: "🍊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492888624.jpg" },
+  { brand: "banapresso", name: "머스캣블랙티",          caffeine: 40, emoji: "🍇", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755487803751.jpg" },
+  { brand: "banapresso", name: "라임민트스파클러",      caffeine: 0,  emoji: "🌿", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492764676.jpg" },
+  { brand: "banapresso", name: "체리콕",                caffeine: 0,  emoji: "🍒", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492779364.jpg" },
+  { brand: "banapresso", name: "유자민트티",            caffeine: 0,  emoji: "🍋", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492795760.jpg" },
+  { brand: "banapresso", name: "애플캐모마일스위티",    caffeine: 0,  emoji: "🍎", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492809866.jpg" },
+  { brand: "banapresso", name: "딸기코코레모네이드",    caffeine: 0,  emoji: "🍓", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492823942.jpg" },
+  { brand: "banapresso", name: "헛개차",                caffeine: 0,  emoji: "🌿", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492836969.jpg" },
+  { brand: "banapresso", name: "허니유자티",            caffeine: 0,  emoji: "🍯", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492921484.jpg" },
+  { brand: "banapresso", name: "망고홍차아이스티",      caffeine: 40, emoji: "🥭", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493016042.jpg" },
+  { brand: "banapresso", name: "플러스 망고홍차아이스티", caffeine: 40, emoji: "🥭", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493035420.jpg" },
+  { brand: "banapresso", name: "아삭복숭아아이스티",    caffeine: 30, emoji: "🍑", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493065288.jpg" },
+  { brand: "banapresso", name: "얼음동동식혜",          caffeine: 0,  emoji: "🧊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493104874.jpg" },
+  { brand: "banapresso", name: "자몽허니블랙티",        caffeine: 40, emoji: "🍊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493425606.jpg" },
+  { brand: "banapresso", name: "문경오미자티",          caffeine: 0,  emoji: "🫐", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493446776.jpg" },
+  { brand: "banapresso", name: "제주청귤티",            caffeine: 0,  emoji: "🍊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493463934.jpg" },
+  { brand: "banapresso", name: "제주청귤에이드",        caffeine: 0,  emoji: "🍊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493483313.jpg" },
+  { brand: "banapresso", name: "복숭아에이드",          caffeine: 0,  emoji: "🍑", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493502224.jpg" },
+  { brand: "banapresso", name: "레몬에이드",            caffeine: 0,  emoji: "🍋", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493523080.jpg" },
+  { brand: "banapresso", name: "자몽에이드",            caffeine: 0,  emoji: "🍊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493544782.jpg" },
+  { brand: "banapresso", name: "청포도에이드",          caffeine: 0,  emoji: "🍇", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493560565.jpg" },
+  { brand: "banapresso", name: "요구르트레몬에이드",    caffeine: 0,  emoji: "🍋", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755492753038.jpg" },
+  { brand: "banapresso", name: "레몬티",                caffeine: 0,  emoji: "🍋", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493578583.jpg" },
+  { brand: "banapresso", name: "자몽티",                caffeine: 0,  emoji: "🍊", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493593559.jpg" },
+  { brand: "banapresso", name: "캐모마일",              caffeine: 0,  emoji: "🌼", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250918_1758152991637.jpg" },
+  { brand: "banapresso", name: "히비스커스",            caffeine: 0,  emoji: "🌺", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493810049.jpg" },
+  { brand: "banapresso", name: "얼그레이",              caffeine: 40, emoji: "🍵", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493831456.jpg" },
+  { brand: "banapresso", name: "페퍼민트",              caffeine: 0,  emoji: "🌿", category: "티&에이드", img: "https://www.banapresso.com/from_open_storage?ws=fprocess&file=banapresso/menu/new_img_hot_20250818_1755493847535.jpg" },
 ];
 
 const MAX_CAFFEINE   = 215;
@@ -1136,9 +1340,11 @@ function buildDrinkCard(drink, latestMs, nowMs) {
 
   const brandBadge = drink.brand === 'starbucks'
     ? `<div class="brand-badge brand-badge-starbucks">STARBUCKS</div>`
-    : `<div class="brand-badge brand-badge-gongcha">공차</div>`;
+    : drink.brand === 'gongcha'
+      ? `<div class="brand-badge brand-badge-gongcha">공차</div>`
+      : `<div class="brand-badge brand-badge-banapresso">바나프레소</div>`;
 
-  const sizeLabel = drink.brand === 'gongcha' ? 'L' : 'Tall';
+  const sizeLabel = drink.brand === 'gongcha' ? 'L' : drink.brand === 'banapresso' ? 'M' : 'Tall';
 
   return `
     <div class="drink-card${ok ? '' : ' disabled'}">
@@ -1234,7 +1440,7 @@ function renderResults() {
     const h        = hoursNeeded(best.caffeine);
     const clr      = h === 0 ? null : formatTime(nowMs + h * 3600000);
     const w        = barPct(best.caffeine);
-    const sizeLabel = best.brand === 'gongcha' ? 'L' : 'Tall';
+    const sizeLabel = best.brand === 'gongcha' ? 'L' : best.brand === 'banapresso' ? 'M' : 'Tall';
     bestWrap.innerHTML = `
       <div class="best-pick-card">
         <div class="best-pick-badge">🏆 지금 마시기 가장 좋은 선택</div>
