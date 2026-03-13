@@ -90,7 +90,7 @@
 
     /* ===== iOS DRUM PICKER ===== */
     .picker-outer {
-      background: #F7EFE6;
+      background: #FBF7F3;
       border-radius: 16px;
       overflow: hidden;
       margin-bottom: 16px;
@@ -249,13 +249,13 @@
 
     /* ===== FORMULA HINT ===== */
     .formula-hint {
-      background: #FEF3E8;
-      border: 1px solid #F5C49A;
+      background: #F2F2F2;
+      border: 1px solid #DEDEDE;
       border-radius: 12px;
       padding: 12px 16px;
       margin-top: 16px;
       font-size: 0.8rem;
-      color: #8C5E3A;
+      color: #888;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -314,7 +314,7 @@
     }
 
     .coffee-cup-emoji {
-      font-size: 4.5rem;
+      font-size: 2.7rem;
       line-height: 1;
       display: block;
     }
@@ -677,7 +677,6 @@
     <button class="calc-btn" onclick="calculate()">추천받기 →</button>
 
     <div class="formula-hint">
-      <span>🧪</span>
       카페인 반감기 4시간 기준 · 체내 잔여 카페인 <span id="formula-hint-mg">50mg</span> 이하일 때 수면 가능
     </div>
   </section>
@@ -1317,7 +1316,7 @@ function buildDrinkCard(drink, latestMs, nowMs) {
   } else if (ok) {
     const t = formatTime(latestMs);
     deadlineHtml = urgent
-      ? `<div class="drink-deadline urgent">⏰ ${t}까지 마셔야 해요</div>`
+      ? `<div class="drink-deadline urgent">${t}까지 마셔야 해요</div>`
       : `<div class="drink-deadline">${t}까지 마실 수 있어요</div>`;
   } else {
     deadlineHtml = `<div class="drink-deadline disabled-msg">${formatHours(Math.abs(msLeft) / 3600000)} 전에 마셨어야 해요</div>`;
@@ -1462,7 +1461,6 @@ function renderResults() {
   const availSec = document.getElementById('available-section');
   availSec.innerHTML = available.length > 0 ? `
     <div class="section-header">
-      <span>✅</span>
       <h2>지금 마실 수 있는 메뉴</h2>
       <span class="count-badge">${available.length}개</span>
     </div>
