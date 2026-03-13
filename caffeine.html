@@ -133,7 +133,7 @@
     /* 컬럼 컨테이너 */
     .picker-cols {
       display: flex;
-      height: 220px; /* 5 items × 44px */
+      height: 132px; /* 3 items × 44px */
     }
 
     /* 각 컬럼 */
@@ -360,7 +360,12 @@
     .brand-tabs {
       display: flex;
       gap: 8px;
-      margin-bottom: 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #FAF6F1;
+      padding: 12px 0 10px;
+      margin-bottom: 14px;
     }
     .brand-tab {
       flex: 1;
@@ -639,17 +644,14 @@
         <button class="sens-btn" data-sens="sensitive">
           <span class="sens-icon">🌙</span>
           예민해요
-          <span class="sens-desc">25mg 이하</span>
         </button>
         <button class="sens-btn active" data-sens="normal">
           <span class="sens-icon">☕</span>
           보통이에요
-          <span class="sens-desc">50mg 이하</span>
         </button>
         <button class="sens-btn" data-sens="strong">
           <span class="sens-icon">💪</span>
           강한 편이에요
-          <span class="sens-desc">75mg 이하</span>
         </button>
       </div>
     </div>
@@ -750,7 +752,7 @@ class PickerCol {
     this.items    = items;
     this.loop     = loop && items.length > 3;
     this.itemH    = 44;
-    this.visible  = 5;           // 화면에 보이는 행 수
+    this.visible  = 3;           // 화면에 보이는 행 수
     this.selIdx   = defaultIdx;
     this.onChange = onChange;
 
@@ -1182,7 +1184,7 @@ function showLoading(callback) {
   fillEl.style.transition = 'none';
   fillEl.style.width = '0%';
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    fillEl.style.transition = 'width 3s cubic-bezier(0.4, 0, 0.2, 1)';
+    fillEl.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
     fillEl.style.width = '100%';
   }));
 
@@ -1203,7 +1205,7 @@ function showLoading(callback) {
     clearInterval(msgTimer);
     loadingEl.classList.remove('visible');
     callback();
-  }, 3000);
+  }, 1500);
 }
 
 /* ===================================================
