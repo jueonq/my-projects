@@ -715,9 +715,9 @@
     <!-- 브랜드 필터 탭 -->
     <div class="brand-tabs">
       <button class="brand-tab active" data-brand="all">전체</button>
-      <button class="brand-tab" data-brand="starbucks">☕ 스타벅스</button>
-      <button class="brand-tab" data-brand="gongcha">🧋 공차</button>
-      <button class="brand-tab" data-brand="banapresso">🍌 바나프레소</button>
+      <button class="brand-tab" data-brand="starbucks">스타벅스</button>
+      <button class="brand-tab" data-brand="gongcha">공차</button>
+      <button class="brand-tab" data-brand="banapresso">바나프레소</button>
     </div>
     <div id="best-pick-wrap"></div>
     <div id="available-section"></div>
@@ -1348,7 +1348,7 @@ function buildDrinkCard(drink, latestMs, nowMs) {
 
   return `
     <div class="drink-card${ok ? '' : ' disabled'}">
-      ${urgent ? '<div class="urgent-badge">마감 임박</div>' : ''}
+      ${urgent ? '<div class="urgent-badge">마지막 타이밍</div>' : ''}
       ${brandBadge}
       <div class="drink-img-wrap">${imgHtml}</div>
       <div class="drink-body">
