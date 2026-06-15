@@ -29,6 +29,7 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
   const { setNodeRef, isOver } = useDroppable({ id, data: { time, day } });
 
   const isHour = time.endsWith(':00');
+  const isFirst = time === '06:00';
   const hasCards = places.length > 0;
 
   return (
@@ -48,10 +49,14 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
       {/* 드롭존 */}
       <div
         ref={setNodeRef}
-        className={`flex-1 px-2 py-1.5 flex flex-col gap-1.5 transition-colors ${
+        className={`flex-1 px-2 flex flex-col gap-1.5 transition-colors ${
           isOver ? 'bg-stone-50' : ''
         }`}
-        style={isHour ? { borderTop: '1px dashed #292524' } : {}}
+        style={{
+          paddingTop: 3,
+          paddingBottom: 3,
+          ...(isHour && !isFirst ? { borderTop: '1px dashed #292524' } : {}),
+        }}
       >
         {places.map((place) => (
           <PlaceCard
