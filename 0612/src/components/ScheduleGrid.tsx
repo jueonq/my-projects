@@ -36,14 +36,14 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
       {/* 시간 레이블 */}
       <div className="w-14 flex-shrink-0 flex items-start justify-end pr-3 pt-2">
         {isHour ? (
-          <span className="text-[10px] text-stone-400 font-medium tracking-wide">{time}</span>
+          <span className="text-[10px] font-medium tracking-wide" style={{ color: '#292524' }}>{time}</span>
         ) : (
           <span className="text-[10px] text-stone-200">·</span>
         )}
       </div>
 
       {/* 구분선 */}
-      <div className="w-px flex-shrink-0 self-stretch bg-stone-200" />
+      <div className="w-px flex-shrink-0 self-stretch" style={{ background: '#292524' }} />
 
       {/* 드롭존 */}
       <div

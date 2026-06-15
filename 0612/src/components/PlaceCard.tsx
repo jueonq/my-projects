@@ -36,7 +36,7 @@ export function PlaceCard({ place, onRemove, draggableId, fromSlot }: Props) {
     >
       <div className="flex items-start gap-1.5">
         <div className="flex-1 min-w-0">
-          <p className="text-[13px] font-semibold text-stone-800 leading-tight truncate">{place.name}</p>
+          <p className={`font-semibold text-stone-800 leading-tight truncate ${fromSlot ? 'text-[15px]' : 'text-[13px]'}`}>{place.name}</p>
           <p className="text-[11px] mt-0.5 font-medium" style={{ color: areaColor }}>
             {place.area}
           </p>
