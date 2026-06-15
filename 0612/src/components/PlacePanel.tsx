@@ -41,7 +41,7 @@ export function PlacePanel({ allPlaces, scheduledIds, onAddCustom, onRemoveCusto
 
   return (
     <>
-      <div className="bg-[#F5F4F0] border-b border-stone-200">
+      <div className="bg-[#F5F4F0] border-b border-black">
         {/* 헤더 */}
         <div
           className="flex items-center justify-between px-4 pt-3 pb-2 cursor-pointer"

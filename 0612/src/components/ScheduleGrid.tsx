@@ -50,7 +50,8 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
         ref={setNodeRef}
         className={`flex-1 px-2 py-1.5 flex flex-col gap-1.5 transition-colors ${
           isOver ? 'bg-stone-50' : ''
-        } ${isHour ? 'border-t border-stone-100' : ''}`}
+        }`}
+        style={isHour ? { borderTop: '1px dashed #292524' } : {}}
       >
         {places.map((place) => (
           <PlaceCard
