@@ -32,8 +32,8 @@ export function AddPlaceModal({ onAdd, onClose }: Props) {
     onClose();
   };
 
-  const inputStyle = { borderRadius: 4 };
-  const btnStyle = { borderRadius: 4 };
+  const inputStyle = { borderRadius: 2 };
+  const btnStyle = { borderRadius: 2 };
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={onClose}
@@ -41,7 +41,7 @@ export function AddPlaceModal({ onAdd, onClose }: Props) {
       <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
       <div
         className="relative bg-white w-full max-w-lg p-6 pb-10 border-t border-stone-100"
-        style={{ borderRadius: '4px 4px 0 0', animation: 'slideUp 0.28s cubic-bezier(0.32,0.72,0,1)' }}
+        style={{ borderRadius: '2px 2px 0 0', animation: 'slideUp 0.28s cubic-bezier(0.32,0.72,0,1)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-8 h-0.5 bg-stone-200 rounded-full mx-auto mb-5" />

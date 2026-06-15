@@ -21,7 +21,7 @@ export function PlaceCard({ place, onRemove, draggableId, fromSlot }: Props) {
     transform: CSS.Translate.toString(transform),
     opacity: isDragging ? 0.3 : 1,
     zIndex: isDragging ? 999 : undefined,
-    borderRadius: 4,
+    borderRadius: 2,
   };
 
   const areaColor = areaConfig[place.area]?.color ?? '#888';
@@ -32,7 +32,7 @@ export function PlaceCard({ place, onRemove, draggableId, fromSlot }: Props) {
       style={style}
       {...listeners}
       {...attributes}
-      className="relative bg-white px-3 py-2.5 border border-stone-200 select-none touch-none cursor-grab active:cursor-grabbing"
+      className={`relative bg-white px-3 py-2.5 border select-none touch-none cursor-grab active:cursor-grabbing ${fromSlot ? 'border-black' : 'border-stone-200'}`}
     >
       <div className="flex items-start gap-1.5">
         <div className="flex-1 min-w-0">

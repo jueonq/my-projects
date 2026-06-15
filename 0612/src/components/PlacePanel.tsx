@@ -56,7 +56,7 @@ export function PlacePanel({ allPlaces, scheduledIds, onAddCustom, onRemoveCusto
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => { e.stopPropagation(); setShowModal(true); }}
             className="text-[11px] font-semibold tracking-wide border border-stone-300 text-stone-500 px-3 py-1.5 hover:border-stone-400 transition-colors"
-            style={{ borderRadius: 4 }}
+            style={{ borderRadius: 2 }}
           >
             +
           </button>
@@ -69,7 +69,7 @@ export function PlacePanel({ allPlaces, scheduledIds, onAddCustom, onRemoveCusto
               onClick={() => setSelectedArea('all')}
               className="flex-shrink-0 text-[11px] px-3 py-1.5 font-semibold tracking-wide transition-all border"
               style={{
-                borderRadius: 4,
+                borderRadius: 2,
                 background: selectedArea === 'all' ? '#292524' : 'transparent',
                 color: selectedArea === 'all' ? '#fff' : '#78716c',
                 borderColor: selectedArea === 'all' ? '#292524' : '#e7e5e4',
@@ -86,7 +86,7 @@ export function PlacePanel({ allPlaces, scheduledIds, onAddCustom, onRemoveCusto
                   onClick={() => setSelectedArea(area)}
                   className="flex-shrink-0 text-[11px] px-3 py-1.5 font-semibold tracking-wide transition-all border"
                   style={{
-                    borderRadius: 4,
+                    borderRadius: 2,
                     background: active ? cfg.color : 'transparent',
                     color: active ? '#fff' : '#78716c',
                     borderColor: active ? cfg.color : '#e7e5e4',
@@ -138,7 +138,7 @@ export function PlacePanel({ allPlaces, scheduledIds, onAddCustom, onRemoveCusto
           <div className="absolute inset-0 bg-black/25 backdrop-blur-[2px]" />
           <div
             className="relative bg-white mx-6 w-full max-w-xs px-6 py-6"
-            style={{ borderRadius: 4 }}
+            style={{ borderRadius: 2 }}
             onClick={(e) => e.stopPropagation()}
           >
             <p className="text-[16px] font-bold text-stone-800 mb-1 truncate">{confirmPlace.name}</p>
@@ -147,14 +147,14 @@ export function PlacePanel({ allPlaces, scheduledIds, onAddCustom, onRemoveCusto
               <button
                 onClick={() => setConfirmPlace(null)}
                 className="flex-1 py-3 border border-stone-200 text-stone-500 text-sm font-semibold"
-                style={{ borderRadius: 4 }}
+                style={{ borderRadius: 2 }}
               >
                 아니요
               </button>
               <button
                 onClick={handleDelete}
                 className="flex-1 py-3 bg-stone-800 text-white text-sm font-semibold"
-                style={{ borderRadius: 4 }}
+                style={{ borderRadius: 2 }}
               >
                 삭제
               </button>

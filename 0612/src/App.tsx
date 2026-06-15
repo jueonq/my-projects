@@ -86,24 +86,26 @@ export default function App() {
       <div className="flex flex-col h-svh w-full bg-[#F5F4F0]">
         {/* 헤더 */}
         <header className="bg-[#F5F4F0] px-4 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
-          <div>
-            <p className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: '#CA4646' }}>Tokyo</p>
-            <h1 className="text-base font-bold text-stone-800 leading-tight">하루 일정</h1>
-          </div>
+          <p className="text-xl font-bold tracking-widest uppercase leading-none" style={{ color: '#CA4646' }}>Tokyo</p>
           <div className="flex items-center gap-2">
             <button
               onClick={handleShare}
-              className="text-[11px] font-semibold tracking-wide px-3 py-2 border border-stone-300 text-stone-500 bg-transparent"
-              style={{ borderRadius: 4 }}
+              className="flex items-center justify-center w-9 h-9 border border-stone-300 text-stone-500 bg-transparent"
+              style={{ borderRadius: 2 }}
+              title="링크 공유"
             >
-              공유
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                <polyline points="16 6 12 2 8 6"/>
+                <line x1="12" y1="2" x2="12" y2="15"/>
+              </svg>
             </button>
             <div className="relative">
               <select
                 value={currentDay}
                 onChange={(e) => setCurrentDay(e.target.value as DayKey)}
                 className="appearance-none text-[13px] font-semibold border border-stone-300 pl-3 pr-8 py-2 bg-transparent outline-none text-stone-700"
-                style={{ borderRadius: 4 }}
+                style={{ borderRadius: 2 }}
               >
                 {(Object.keys(DAY_LABELS) as DayKey[]).map((day) => (
                   <option key={day} value={day}>{DAY_LABELS[day]}</option>
@@ -118,7 +120,7 @@ export default function App() {
 
         {/* 공유 토스트 */}
         {shareToast && (
-          <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-stone-800 text-white text-xs font-medium px-4 py-2.5" style={{ borderRadius: 4 }}>
+          <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-stone-800 text-white text-xs font-medium px-4 py-2.5" style={{ borderRadius: 2 }}>
             링크 복사됐어요
           </div>
         )}

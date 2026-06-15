@@ -125,7 +125,7 @@ export function MapModal({ onClose }: Props) {
       <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
       <div
         className="relative bg-white w-full max-w-lg border-t border-stone-100"
-        style={{ borderRadius: '4px 4px 0 0' }}
+        style={{ borderRadius: '2px 2px 0 0' }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-8 h-0.5 bg-stone-200 rounded-full mx-auto mt-4 mb-1" />
