@@ -32,7 +32,7 @@ export function PlaceCard({ place, onRemove, draggableId, fromSlot }: Props) {
       style={style}
       {...listeners}
       {...attributes}
-      className={`relative bg-white px-3 py-2.5 border select-none touch-none cursor-grab active:cursor-grabbing ${fromSlot ? 'border-black' : 'border-stone-200'}`}
+      className={`relative bg-white px-3 py-2.5 border select-none touch-none cursor-grab active:cursor-grabbing ${fromSlot ? 'border-black' : 'border-stone-400'}`}
     >
       <div className="flex items-start gap-1.5">
         <div className="flex-1 min-w-0">

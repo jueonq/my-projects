@@ -35,7 +35,7 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
   return (
     <div className="flex">
       {/* 시간 레이블 */}
-      <div className={`w-14 flex-shrink-0 flex items-start justify-end pr-3 ${hasCards || isHour ? 'pt-2' : ''}`}>
+      <div className={`w-14 flex-shrink-0 flex items-start justify-start pl-3 ${hasCards || isHour ? 'pt-2' : ''}`}>
         {isHour ? (
           <span className="text-[10px] font-medium tracking-wide" style={{ color: '#292524' }}>{time}</span>
         ) : null}
@@ -55,7 +55,7 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
           paddingBottom: hasCards ? 8 : (isOver ? 8 : 0),
           minHeight: isOver ? 48 : (hasCards ? undefined : 0),
           ...(isHour && !isFirst ? {
-            backgroundImage: 'repeating-linear-gradient(to right, #292524 0px, #292524 6px, transparent 6px, transparent 10px)',
+            backgroundImage: 'repeating-linear-gradient(to right, #d6d3d1 0px, #d6d3d1 6px, transparent 6px, transparent 10px)',
             backgroundSize: '100% 1px',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'top',

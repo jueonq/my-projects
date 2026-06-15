@@ -48,7 +48,7 @@ export function PlacePanel({ allPlaces, scheduledIds, onAddCustom, onRemoveCusto
           onClick={() => setCollapsed((v) => !v)}
         >
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-semibold tracking-widest text-stone-400 uppercase">Places</span>
+            <span className="text-[11px] font-semibold tracking-widest text-stone-400">places</span>
             <span className="text-[11px] text-stone-300">{filtered.length}</span>
             <span className="text-[10px] text-stone-300">{collapsed ? '▾' : '▴'}</span>
           </div>
