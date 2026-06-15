@@ -49,12 +49,12 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
       {/* 드롭존 */}
       <div
         ref={setNodeRef}
-        className={`flex-1 px-2 flex flex-col gap-1.5 transition-colors ${
+        className={`flex-1 px-2 flex flex-col gap-2 transition-colors ${
           isOver ? 'bg-stone-50' : ''
         }`}
         style={{
-          paddingTop: 3,
-          paddingBottom: 3,
+          paddingTop: 4,
+          paddingBottom: 4,
           ...(isHour && !isFirst ? { borderTop: '1px dashed #292524' } : {}),
         }}
       >
