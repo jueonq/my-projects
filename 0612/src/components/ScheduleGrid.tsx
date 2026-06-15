@@ -54,7 +54,12 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
           paddingTop: hasCards ? 8 : (isOver ? 8 : 0),
           paddingBottom: hasCards ? 8 : (isOver ? 8 : 0),
           minHeight: isOver ? 48 : (hasCards ? undefined : 0),
-          ...(isHour && !isFirst ? { borderTop: '1px dashed #292524' } : {}),
+          ...(isHour && !isFirst ? {
+            backgroundImage: 'repeating-linear-gradient(to right, #292524 0px, #292524 6px, transparent 6px, transparent 16px)',
+            backgroundSize: '100% 1px',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'top',
+          } : {}),
         }}
       >
         {places.map((place) => (
