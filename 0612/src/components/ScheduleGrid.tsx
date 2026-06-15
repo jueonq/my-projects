@@ -55,7 +55,7 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
           paddingBottom: hasCards ? 8 : (isOver ? 8 : 0),
           minHeight: isOver ? 48 : (hasCards ? undefined : 0),
           ...(isHour && !isFirst ? {
-            backgroundImage: 'repeating-linear-gradient(to right, #292524 0px, #292524 6px, transparent 6px, transparent 16px)',
+            backgroundImage: 'repeating-linear-gradient(to right, #292524 0px, #292524 6px, transparent 6px, transparent 10px)',
             backgroundSize: '100% 1px',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'top',
