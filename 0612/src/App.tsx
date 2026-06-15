@@ -86,9 +86,9 @@ export default function App() {
       <div className="flex flex-col h-svh w-full bg-[#F5F4F0]">
         {/* 헤더 */}
         <header className="bg-[#F5F4F0] px-4 pt-4 pb-3 flex items-center justify-between flex-shrink-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <p className="text-xl font-bold tracking-widest leading-none" style={{ color: '#CA4646' }}>tokyo</p>
-            <span style={{ color: '#93C5FD', fontSize: 16 }}>♡</span>
+            <span style={{ color: '#93C5FD', fontSize: 15 }}>♥</span>
           </div>
           <div className="flex items-center gap-2">
             <button
