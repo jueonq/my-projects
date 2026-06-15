@@ -53,8 +53,8 @@ function TimeSlotRow({ time, day, places, onRemove }: SlotProps) {
           isOver ? 'bg-stone-50' : ''
         }`}
         style={{
-          paddingTop: 8,
-          paddingBottom: 8,
+          paddingTop: 4,
+          paddingBottom: 4,
           ...(isHour && !isFirst ? { borderTop: '1px dashed #292524' } : {}),
         }}
       >
